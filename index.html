@@ -533,38 +533,85 @@
                 <!-- TAB 3: DAFTAR HADIR & GENERATOR DPT (TANPA NAMA + QR LOGIN CARDS) -->
                 <div id="admin-tab-dpt" class="admin-tab-pane hidden space-y-6">
                     <!-- DPT Action Controls -->
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
                         <!-- Add Single DPT -->
                         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                            <h4 class="text-sm font-black uppercase tracking-wider text-slate-800 mb-1">Tambah Kode Pemilih DPT</h4>
-                            <p class="text-xs text-slate-500 mb-4">DPT bersifat anonim (tanpa nama) menggunakan Kode ID unik.</p>
-                            <form id="form-add-single-dpt" class="flex flex-wrap sm:flex-nowrap gap-2.5">
+                            <h4 class="text-sm font-black uppercase tracking-wider text-slate-800 mb-1">Tambah DPT Tunggal</h4>
+                            <p class="text-xs text-slate-500 mb-4">Masukkan kode ID pemilih baru.</p>
+                            <form id="form-add-single-dpt" class="space-y-3">
                                 <input type="text" id="input-new-dpt-id" placeholder="Kode ID (misal: IPM-2026)" required
-                                    class="flex-1 px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl font-mono text-xs font-bold uppercase focus:outline-none focus:border-primary">
-                                <select id="select-new-dpt-category" class="px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:border-primary">
+                                    class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl font-mono text-xs font-bold uppercase focus:outline-none focus:border-primary">
+                                <select id="select-new-dpt-category" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:border-primary">
                                     <option value="Siswa">Siswa</option>
                                     <option value="Pendidik">Pendidik</option>
                                 </select>
-                                <button type="submit" id="btn-submit-single-dpt" class="px-4 py-2.5 rounded-xl bg-primary text-white font-bold text-xs uppercase tracking-wider hover:opacity-95 transition cursor-pointer shrink-0">
-                                    <i class="fa-solid fa-plus mr-1"></i> Tambah
+                                <button type="submit" id="btn-submit-single-dpt" class="w-full py-2.5 rounded-xl bg-primary text-white font-bold text-xs uppercase tracking-wider hover:opacity-95 transition cursor-pointer">
+                                    <i class="fa-solid fa-plus mr-1"></i> Tambah DPT
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Generate Range DPT -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <h4 class="text-sm font-black uppercase tracking-wider text-slate-800 mb-1">Generate DPT Rentang (Range)</h4>
+                            <p class="text-xs text-slate-500 mb-4">Masukkan awal & akhir nomor (misal: IPM1920 s.d 1990).</p>
+                            <form id="form-generate-range-dpt" class="space-y-3">
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-slate-500 mb-1">Prefix / Awalan</label>
+                                        <input type="text" id="input-range-prefix" value="IPM" placeholder="IPM atau GURU" required
+                                            class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl font-mono text-xs font-bold uppercase focus:outline-none focus:border-primary">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-slate-500 mb-1">Kategori</label>
+                                        <select id="select-range-category" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:border-primary">
+                                            <option value="Siswa">Siswa</option>
+                                            <option value="Pendidik">Pendidik</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-slate-500 mb-1">Nomor Awal</label>
+                                        <input type="number" id="input-range-start" value="1920" required
+                                            class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold text-center focus:outline-none focus:border-primary">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-slate-500 mb-1">Nomor Akhir</label>
+                                        <input type="number" id="input-range-end" value="1990" required
+                                            class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold text-center focus:outline-none focus:border-primary">
+                                    </div>
+                                </div>
+                                <button type="submit" id="btn-submit-range-dpt" class="w-full py-2.5 rounded-xl bg-primary text-white font-bold text-xs uppercase tracking-wider hover:opacity-95 transition cursor-pointer">
+                                    <i class="fa-solid fa-list-ol mr-1"></i> Buat DPT Rentang
                                 </button>
                             </form>
                         </div>
 
                         <!-- Generate Random DPT Codes -->
                         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                            <h4 class="text-sm font-black uppercase tracking-wider text-slate-800 mb-1">Generate Kode Acak DPT (Massal)</h4>
-                            <p class="text-xs text-slate-500 mb-4">Buat puluhan kode acak DPT tanpa nama secara instan.</p>
-                            <form id="form-generate-random-dpt" class="flex flex-wrap sm:flex-nowrap gap-2.5">
-                                <input type="number" id="input-random-dpt-qty" min="1" max="200" value="10" required
-                                    class="w-24 px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold text-center focus:outline-none focus:border-primary">
-                                <select id="select-random-dpt-category" class="flex-1 px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:border-primary">
-                                    <option value="Siswa">Kategori: Siswa</option>
-                                    <option value="Pendidik">Kategori: Pendidik</option>
-                                </select>
-                                <button type="submit" id="btn-submit-random-dpt" class="px-4 py-2.5 rounded-xl bg-slate-900 text-secondary font-bold text-xs uppercase tracking-wider hover:bg-slate-800 transition cursor-pointer shrink-0">
-                                    <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Generate Acak
-                                </button>
+                            <h4 class="text-sm font-black uppercase tracking-wider text-slate-800 mb-1">Generate Kode Acak DPT</h4>
+                            <p class="text-xs text-slate-500 mb-4">Buat puluhan kode acak DPT secara instan.</p>
+                            <form id="form-generate-random-dpt" class="space-y-3">
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-slate-500 mb-1">Jumlah</label>
+                                        <input type="number" id="input-random-dpt-qty" min="1" max="200" value="10" required
+                                            class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold text-center focus:outline-none focus:border-primary">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-slate-500 mb-1">Kategori</label>
+                                        <select id="select-random-dpt-category" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:border-primary">
+                                            <option value="Siswa">Siswa</option>
+                                            <option value="Pendidik">Pendidik</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="pt-1">
+                                    <button type="submit" id="btn-submit-random-dpt" class="w-full py-2.5 rounded-xl bg-slate-900 text-secondary font-bold text-xs uppercase tracking-wider hover:bg-slate-800 transition cursor-pointer">
+                                        <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Generate Acak
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -1954,7 +2001,6 @@
                 return;
             }
 
-            // Sanitasi karakter terlarang untuk Firestore Document ID
             if (rawId.includes('/') || rawId === '.' || rawId === '..') {
                 showToast('Kode ID tidak boleh mengandung karakter "/" atau titik saja.', 'error');
                 return;
@@ -1962,11 +2008,6 @@
 
             if (!fbDb) {
                 showToast('Database Firebase belum terhubung.', 'error');
-                return;
-            }
-
-            if (state.dpt.some(d => d.id.toUpperCase() === rawId)) {
-                showToast(`Kode "${rawId}" sudah terdaftar di DPT!`, 'error');
                 return;
             }
 
@@ -1989,9 +2030,78 @@
             } catch (err) {
                 console.error('Error tambah DPT tunggal:', err);
                 const msg = err.code === 'permission-denied'
-                    ? 'Akses ditolak oleh Firestore Security Rules. Pastikan aturan Firestore mengizinkan tulis.'
+                    ? 'Akses ditolak oleh Firestore Security Rules.'
                     : `Gagal menambahkan DPT: ${err.message}`;
                 showToast(msg, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalHtml;
+            }
+        });
+
+        // Handler Generate DPT Rentang (Range)
+        document.getElementById('form-generate-range-dpt').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = document.getElementById('btn-submit-range-dpt');
+            const prefix = document.getElementById('input-range-prefix').value.trim().toUpperCase();
+            const kategori = document.getElementById('select-range-category').value;
+            const startNum = parseInt(document.getElementById('input-range-start').value, 10);
+            const endNum = parseInt(document.getElementById('input-range-end').value, 10);
+
+            if (!prefix || isNaN(startNum) || isNaN(endNum)) {
+                showToast('Mohon lengkapi awalan dan nomor rentang DPT dengan benar.', 'error');
+                return;
+            }
+
+            if (startNum > endNum) {
+                showToast('Nomor awal tidak boleh lebih besar dari nomor akhir.', 'error');
+                return;
+            }
+
+            const totalCount = (endNum - startNum) + 1;
+            if (totalCount > 500) {
+                showToast('Maksimal 500 DPT dalam sekali generate rentang.', 'error');
+                return;
+            }
+
+            if (!fbDb) {
+                showToast('Database Firebase belum terhubung.', 'error');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            const originalHtml = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Memproses...';
+
+            try {
+                const existingIds = new Set(state.dpt.map(d => d.id.toUpperCase()));
+                const generated = [];
+
+                for (let i = startNum; i <= endNum; i++) {
+                    const code = `${prefix}${i}`;
+                    if (!existingIds.has(code)) {
+                        existingIds.add(code);
+                        generated.push({ id: code, kategori, status: 'Menunggu', votedAt: '-' });
+                    }
+                }
+
+                if (generated.length === 0) {
+                    showToast('Semua kode pada rentang tersebut sudah terdaftar sebelumnya.', 'info');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalHtml;
+                    return;
+                }
+
+                // Firestore batch write supports up to 500 operations
+                const batch = writeBatch(fbDb);
+                generated.forEach(item => {
+                    batch.set(doc(fbDb, 'dpt', item.id), item);
+                });
+                await batch.commit();
+                showToast(`${generated.length} DPT rentang (${prefix}${startNum} - ${prefix}${endNum}) berhasil dibuat!`);
+            } catch (err) {
+                console.error('Error generate range DPT:', err);
+                showToast(`Gagal generate DPT: ${err.message}`, 'error');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalHtml;
@@ -2035,13 +2145,10 @@
                     batch.set(doc(fbDb, 'dpt', item.id), item);
                 });
                 await batch.commit();
-                showToast(`${generated.length} Kode Acak DPT (Tanpa Nama) berhasil dibuat`);
+                showToast(`${generated.length} Kode Acak DPT berhasil dibuat`);
             } catch (err) {
                 console.error('Error generate massal DPT:', err);
-                const msg = err.code === 'permission-denied'
-                    ? 'Akses ditolak oleh Firestore Security Rules. Periksa izin tulis koleksi "dpt".'
-                    : `Gagal generate DPT: ${err.message}`;
-                showToast(msg, 'error');
+                showToast(`Gagal generate DPT: ${err.message}`, 'error');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalHtml;
