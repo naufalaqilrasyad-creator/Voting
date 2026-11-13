@@ -545,7 +545,7 @@
                                     <option value="Siswa">Siswa</option>
                                     <option value="Pendidik">Pendidik</option>
                                 </select>
-                                <button type="submit" class="px-4 py-2.5 rounded-xl bg-primary text-white font-bold text-xs uppercase tracking-wider hover:opacity-95 transition cursor-pointer shrink-0">
+                                <button type="submit" id="btn-submit-single-dpt" class="px-4 py-2.5 rounded-xl bg-primary text-white font-bold text-xs uppercase tracking-wider hover:opacity-95 transition cursor-pointer shrink-0">
                                     <i class="fa-solid fa-plus mr-1"></i> Tambah
                                 </button>
                             </form>
@@ -562,7 +562,7 @@
                                     <option value="Siswa">Kategori: Siswa</option>
                                     <option value="Pendidik">Kategori: Pendidik</option>
                                 </select>
-                                <button type="submit" class="px-4 py-2.5 rounded-xl bg-slate-900 text-secondary font-bold text-xs uppercase tracking-wider hover:bg-slate-800 transition cursor-pointer shrink-0">
+                                <button type="submit" id="btn-submit-random-dpt" class="px-4 py-2.5 rounded-xl bg-slate-900 text-secondary font-bold text-xs uppercase tracking-wider hover:bg-slate-800 transition cursor-pointer shrink-0">
                                     <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Generate Acak
                                 </button>
                             </form>
@@ -863,16 +863,15 @@
     <!-- ===================================================================== -->
     <script type="module">
         // PASTE FIREBASE CONFIG ANDA DI SINI
-   const firebaseConfig = {
-  apiKey: "AIzaSyAQM_QOBTrZnXZ7aLOXR_5G7sQ49hTybDg",
-  authDomain: "e-voting-pr-ipm-smpmuhmrk.firebaseapp.com",
-  projectId: "e-voting-pr-ipm-smpmuhmrk",
-  storageBucket: "e-voting-pr-ipm-smpmuhmrk.firebasestorage.app",
-  messagingSenderId: "143987307193",
-  appId: "1:143987307193:web:d286b7ba9825f814e4a168",
-  measurementId: "G-3WER5RPTEX"
-};
-
+        const firebaseConfig = {
+            apiKey: "AIzaSyAQM_QOBTrZnXZ7aLOXR_5G7sQ49hTybDg",
+            authDomain: "e-voting-pr-ipm-smpmuhmrk.firebaseapp.com",
+            projectId: "e-voting-pr-ipm-smpmuhmrk",
+            storageBucket: "e-voting-pr-ipm-smpmuhmrk.firebasestorage.app",
+            messagingSenderId: "143987307193",
+            appId: "1:143987307193:web:d286b7ba9825f814e4a168",
+            measurementId: "G-3WER5RPTEX"
+        };
 
         // Import Firebase Modular SDK v10.12.2
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -1069,7 +1068,7 @@
                 toast.style.opacity = '0';
                 toast.style.transition = 'opacity 0.3s ease';
                 setTimeout(() => toast.remove(), 300);
-            }, 3200);
+            }, 3500);
         }
 
         function openCustomModal({ title, bodyHtml, buttons = [] }) {
@@ -1155,6 +1154,8 @@
                     list.sort((a, b) => (a.nomor || 0) - (b.nomor || 0));
                     state.candidates = list;
                     refreshAllViews();
+                }, (err) => {
+                    console.error('Firestore candidates listener error:', err);
                 });
 
                 // Real-time Listener: DPT (Tanpa Nama)
@@ -1163,6 +1164,8 @@
                     snapshot.forEach(docSnap => list.push({ id: docSnap.id, ...docSnap.data() }));
                     state.dpt = list;
                     refreshAllViews();
+                }, (err) => {
+                    console.error('Firestore DPT listener error:', err);
                 });
 
                 // Real-time Listener: Settings & Appearance
@@ -1284,6 +1287,12 @@
 
             if (!code) {
                 errText.textContent = 'Silakan masukkan Kode Pemilih (ID DPT) Anda terlebih dahulu.';
+                errBox.classList.remove('hidden');
+                return;
+            }
+
+            if (code.includes('/')) {
+                errText.textContent = `Kode Pemilih "${code}" tidak valid.`;
                 errBox.classList.remove('hidden');
                 return;
             }
@@ -1834,12 +1843,16 @@
                 if (initBtn) {
                     initBtn.addEventListener('click', async () => {
                         if (fbDb) {
-                            const batch = writeBatch(fbDb);
-                            DEFAULT_CANDIDATES_TEMPLATE.forEach(c => {
-                                batch.set(doc(fbDb, 'candidates', c.id), c);
-                            });
-                            await batch.commit();
-                            showToast('9 Formatur berhasil ditambahkan ke Firestore');
+                            try {
+                                const batch = writeBatch(fbDb);
+                                DEFAULT_CANDIDATES_TEMPLATE.forEach(c => {
+                                    batch.set(doc(fbDb, 'candidates', c.id), c);
+                                });
+                                await batch.commit();
+                                showToast('9 Formatur berhasil ditambahkan ke Firestore');
+                            } catch (err) {
+                                showToast(`Gagal memuat data: ${err.message}`, 'error');
+                            }
                         }
                     });
                 }
@@ -1916,8 +1929,12 @@
                         return;
                     }
 
-                    await updateDoc(doc(fbDb, 'candidates', candId), { nama, kelas, visi });
-                    showToast(`Data ${nama} tersimpan ke Firestore`);
+                    try {
+                        await updateDoc(doc(fbDb, 'candidates', candId), { nama, kelas, visi });
+                        showToast(`Data ${nama} tersimpan ke Firestore`);
+                    } catch (err) {
+                        showToast(`Gagal menyimpan: ${err.message}`, 'error');
+                    }
                 });
             });
         }
@@ -1927,47 +1944,108 @@
         // =====================================================================
         document.getElementById('form-add-single-dpt').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const rawId = document.getElementById('input-new-dpt-id').value.trim().toUpperCase();
+            const submitBtn = document.getElementById('btn-submit-single-dpt');
+            const inputEl = document.getElementById('input-new-dpt-id');
+            const rawId = inputEl.value.trim().toUpperCase();
             const kategori = document.getElementById('select-new-dpt-category').value;
-            if (!rawId) return;
+
+            if (!rawId) {
+                showToast('Masukkan Kode ID DPT terlebih dahulu.', 'error');
+                return;
+            }
+
+            // Sanitasi karakter terlarang untuk Firestore Document ID
+            if (rawId.includes('/') || rawId === '.' || rawId === '..') {
+                showToast('Kode ID tidak boleh mengandung karakter "/" atau titik saja.', 'error');
+                return;
+            }
+
+            if (!fbDb) {
+                showToast('Database Firebase belum terhubung.', 'error');
+                return;
+            }
 
             if (state.dpt.some(d => d.id.toUpperCase() === rawId)) {
                 showToast(`Kode "${rawId}" sudah terdaftar di DPT!`, 'error');
                 return;
             }
 
-            const newRecord = { id: rawId, kategori, status: 'Menunggu', votedAt: '-' };
-            await setDoc(doc(fbDb, 'dpt', rawId), newRecord);
-            document.getElementById('input-new-dpt-id').value = '';
-            showToast(`Kode Pemilih ${rawId} ditambahkan`);
+            submitBtn.disabled = true;
+            const originalHtml = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Menyimpan...';
+
+            try {
+                const docRef = doc(fbDb, 'dpt', rawId);
+                const existingSnap = await getDoc(docRef);
+                if (existingSnap.exists()) {
+                    showToast(`Kode "${rawId}" sudah terdaftar di server!`, 'error');
+                    return;
+                }
+
+                const newRecord = { id: rawId, kategori, status: 'Menunggu', votedAt: '-' };
+                await setDoc(docRef, newRecord);
+                inputEl.value = '';
+                showToast(`Kode Pemilih ${rawId} berhasil ditambahkan`);
+            } catch (err) {
+                console.error('Error tambah DPT tunggal:', err);
+                const msg = err.code === 'permission-denied'
+                    ? 'Akses ditolak oleh Firestore Security Rules. Pastikan aturan Firestore mengizinkan tulis.'
+                    : `Gagal menambahkan DPT: ${err.message}`;
+                showToast(msg, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalHtml;
+            }
         });
 
         document.getElementById('form-generate-random-dpt').addEventListener('submit', async (e) => {
             e.preventDefault();
+            const submitBtn = document.getElementById('btn-submit-random-dpt');
             const qty = Math.min(200, Math.max(1, parseInt(document.getElementById('input-random-dpt-qty').value, 10) || 10));
             const kategori = document.getElementById('select-random-dpt-category').value;
-            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-            const existingIds = new Set(state.dpt.map(d => d.id.toUpperCase()));
-            const generated = [];
 
-            while (generated.length < qty) {
-                let suffix = '';
-                for (let i = 0; i < 5; i++) {
-                    suffix += chars.charAt(Math.floor(Math.random() * chars.length));
-                }
-                const code = `IPM-${suffix}`;
-                if (!existingIds.has(code)) {
-                    existingIds.add(code);
-                    generated.push({ id: code, kategori, status: 'Menunggu', votedAt: '-' });
-                }
+            if (!fbDb) {
+                showToast('Database Firebase belum terhubung.', 'error');
+                return;
             }
 
-            const batch = writeBatch(fbDb);
-            generated.forEach(item => {
-                batch.set(doc(fbDb, 'dpt', item.id), item);
-            });
-            await batch.commit();
-            showToast(`${generated.length} Kode Acak DPT (Tanpa Nama) berhasil dibuat`);
+            submitBtn.disabled = true;
+            const originalHtml = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Memproses...';
+
+            try {
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+                const existingIds = new Set(state.dpt.map(d => d.id.toUpperCase()));
+                const generated = [];
+
+                while (generated.length < qty) {
+                    let suffix = '';
+                    for (let i = 0; i < 5; i++) {
+                        suffix += chars.charAt(Math.floor(Math.random() * chars.length));
+                    }
+                    const code = `IPM-${suffix}`;
+                    if (!existingIds.has(code)) {
+                        existingIds.add(code);
+                        generated.push({ id: code, kategori, status: 'Menunggu', votedAt: '-' });
+                    }
+                }
+
+                const batch = writeBatch(fbDb);
+                generated.forEach(item => {
+                    batch.set(doc(fbDb, 'dpt', item.id), item);
+                });
+                await batch.commit();
+                showToast(`${generated.length} Kode Acak DPT (Tanpa Nama) berhasil dibuat`);
+            } catch (err) {
+                console.error('Error generate massal DPT:', err);
+                const msg = err.code === 'permission-denied'
+                    ? 'Akses ditolak oleh Firestore Security Rules. Periksa izin tulis koleksi "dpt".'
+                    : `Gagal generate DPT: ${err.message}`;
+                showToast(msg, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalHtml;
+            }
         });
 
         function renderAdminDptTab() {
@@ -2045,8 +2123,12 @@
             document.querySelectorAll('.btn-delete-dpt').forEach(btn => {
                 btn.addEventListener('click', async () => {
                     const id = btn.getAttribute('data-del-dpt');
-                    await deleteDoc(doc(fbDb, 'dpt', id));
-                    showToast(`Kode ${id} dihapus`, 'info');
+                    try {
+                        await deleteDoc(doc(fbDb, 'dpt', id));
+                        showToast(`Kode ${id} dihapus`, 'info');
+                    } catch (err) {
+                        showToast(`Gagal menghapus kode: ${err.message}`, 'error');
+                    }
                 });
             });
         }
@@ -2123,9 +2205,13 @@
 
             applyAppearanceToUI();
             if (fbDb) {
-                await setDoc(doc(fbDb, 'settings', 'general'), state.settings, { merge: true });
+                try {
+                    await setDoc(doc(fbDb, 'settings', 'general'), state.settings, { merge: true });
+                    showToast('Tampilan halaman utama berhasil diperbarui!');
+                } catch (err) {
+                    showToast(`Gagal menyimpan pengaturan: ${err.message}`, 'error');
+                }
             }
-            showToast('Tampilan halaman utama berhasil diperbarui!');
         });
 
         function renderAdminSettingsTab() {
@@ -2186,9 +2272,13 @@
 
             state.coreOfficers = { ketua, sekretaris, bendahara };
             if (fbDb) {
-                await setDoc(doc(fbDb, 'settings', 'core_officers'), state.coreOfficers);
+                try {
+                    await setDoc(doc(fbDb, 'settings', 'core_officers'), state.coreOfficers);
+                    showToast('Penetapan 3 Inti PR IPM berhasil disimpan!');
+                } catch (err) {
+                    showToast(`Gagal menyimpan: ${err.message}`, 'error');
+                }
             }
-            showToast('Penetapan 3 Inti PR IPM berhasil disimpan!');
         });
 
         document.getElementById('btn-save-deadline').addEventListener('click', async () => {
@@ -2196,9 +2286,13 @@
             if (!val) return;
             state.settings.deadline = val;
             if (fbDb) {
-                await setDoc(doc(fbDb, 'settings', 'general'), { deadline: val }, { merge: true });
+                try {
+                    await setDoc(doc(fbDb, 'settings', 'general'), { deadline: val }, { merge: true });
+                    showToast('Batas waktu pemilihan diperbarui');
+                } catch (err) {
+                    showToast(`Gagal menyimpan batas waktu: ${err.message}`, 'error');
+                }
             }
-            showToast('Batas waktu pemilihan diperbarui');
         });
 
         // Export BAP (.TXT)
@@ -2267,17 +2361,21 @@
                                 return;
                             }
 
-                            const batch = writeBatch(fbDb);
-                            state.candidates.forEach(c => {
-                                batch.update(doc(fbDb, 'candidates', c.id), { suara: 0 });
-                            });
-                            state.dpt.forEach(d => {
-                                batch.delete(doc(fbDb, 'dpt', d.id));
-                            });
-                            batch.set(doc(fbDb, 'settings', 'core_officers'), { ketua: '', sekretaris: '', bendahara: '' });
-                            await batch.commit();
-                            closeCustomModal();
-                            showToast('Seluruh database berhasil di-reset ke 0', 'info');
+                            try {
+                                const batch = writeBatch(fbDb);
+                                state.candidates.forEach(c => {
+                                    batch.update(doc(fbDb, 'candidates', c.id), { suara: 0 });
+                                });
+                                state.dpt.forEach(d => {
+                                    batch.delete(doc(fbDb, 'dpt', d.id));
+                                });
+                                batch.set(doc(fbDb, 'settings', 'core_officers'), { ketua: '', sekretaris: '', bendahara: '' });
+                                await batch.commit();
+                                closeCustomModal();
+                                showToast('Seluruh database berhasil di-reset ke 0', 'info');
+                            } catch (err) {
+                                showToast(`Gagal mereset database: ${err.message}`, 'error');
+                            }
                         }
                     }
                 ]
