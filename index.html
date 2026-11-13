@@ -1,0 +1,2820 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Voting Musyran PR IPM SMP Muhammadiyah Merauke</title>
+    
+    <!-- PWA Inline Manifest via Data URI -->
+    <link rel="manifest" href='data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22E-Voting%20PR%20IPM%20SMP%20Muhammadiyah%20Merauke%22%2C%22short_name%22%3A%22IPM%20E-Voting%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23FFFFFF%22%2C%22theme_color%22%3A%22%23138A36%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fplacehold.co%2F192x192%2F138A36%2FFFFFF%3Ftext%3DIPM%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22https%3A%2F%2Fplacehold.co%2F512x512%2F138A36%2FFFFFF%3Ftext%3DIPM%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D'>
+    <meta name="theme-color" content="#138A36">
+
+    <!-- Google Fonts: Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: 'var(--color-primary, #138A36)',
+                        secondary: 'var(--color-secondary, #FFCC00)',
+                        surface: '#F4F6F9',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <!-- QRCode.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- HTML5-QRCode Scanner -->
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+    <style>
+        :root {
+            --color-primary: #138A36;
+            --color-secondary: #FFCC00;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F4F6F9;
+            color: #1e293b;
+            overflow-x: hidden;
+        }
+
+        /* Smooth Fade-In Transition */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Cinematic Stage Spotlights & Animations */
+        @keyframes spotlightSweep {
+            0%, 100% { transform: rotate(-12deg) scale(1); opacity: 0.55; }
+            50% { transform: rotate(12deg) scale(1.08); opacity: 0.85; }
+        }
+        .stage-spotlight-left {
+            background: conic-gradient(from 150deg at 20% 0%, transparent 0deg, rgba(255, 204, 0, 0.25) 25deg, transparent 50deg);
+            animation: spotlightSweep 7s ease-in-out infinite;
+            transform-origin: 20% 0%;
+        }
+        .stage-spotlight-right {
+            background: conic-gradient(from 160deg at 80% 0%, transparent 0deg, rgba(19, 138, 54, 0.35) 25deg, transparent 50deg);
+            animation: spotlightSweep 8s ease-in-out infinite reverse;
+            transform-origin: 80% 0%;
+        }
+
+        @keyframes pulseGold {
+            0%, 100% { box-shadow: 0 0 25px rgba(255, 204, 0, 0.45), 0 0 60px rgba(255, 204, 0, 0.2); }
+            50% { box-shadow: 0 0 45px rgba(255, 204, 0, 0.85), 0 0 90px rgba(255, 204, 0, 0.4); }
+        }
+        .glow-gold {
+            animation: pulseGold 2.5s infinite ease-in-out;
+        }
+
+        @keyframes podiumRise {
+            from { opacity: 0; transform: translateY(80px) scale(0.92); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .animate-podium-rise {
+            animation: podiumRise 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes zoomPop {
+            0% { opacity: 0; transform: scale(0.5); }
+            70% { opacity: 1; transform: scale(1.08); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .animate-zoom-pop {
+            animation: zoomPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* Glassmorphism Utilities */
+        .glass-header {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.82);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        /* Print Styles for QR Voter Cards */
+        @media print {
+            body * {
+                visibility: hidden !important;
+            }
+            #print-qr-sheet, #print-qr-sheet * {
+                visibility: visible !important;
+            }
+            #print-qr-sheet {
+                position: fixed !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                background: #FFFFFF !important;
+                padding: 12px !important;
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 12px !important;
+                z-index: 99999 !important;
+            }
+            .qr-print-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                border: 1.5px dashed #138A36 !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-primary selection:text-white">
+
+    <!-- ===================================================================== -->
+    <!-- 1. INITIAL SERVER CONNECTION LOADER                                   -->
+    <!-- ===================================================================== -->
+    <div id="initial-loader" class="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center p-6 transition-opacity duration-500">
+        <div class="relative w-20 h-20 mb-5 flex items-center justify-center">
+            <div class="absolute inset-0 rounded-full border-4 border-slate-100"></div>
+            <div class="absolute inset-0 rounded-full border-4 border-primary border-t-transparent animate-spin"></div>
+            <i class="fa-solid fa-shield-halved text-2xl text-primary"></i>
+        </div>
+        <h2 class="text-lg font-bold text-slate-800 tracking-wide uppercase">Menghubungkan ke Server E-Voting</h2>
+        <p id="loader-status-text" class="text-xs text-slate-500 mt-1.5 font-medium">Sinkronisasi database real-time & verifikasi keamanan...</p>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- 2. PREVIEW MODE BANNER (HANYA TAMPIL JIKA IS_PREVIEW === true)        -->
+    <!-- ===================================================================== -->
+    <div id="preview-mode-banner" class="hidden bg-amber-50 border-b border-amber-200 px-4 py-2 text-xs text-amber-900 z-40">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2 font-medium">
+                <span class="px-2 py-0.5 rounded bg-amber-500 text-white font-bold uppercase text-[10px] tracking-wider">Mode Preview</span>
+                <span>Simulasi In-Memory aktif (tanpa menulis ke Firebase Firestore).</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-3 text-[11px]">
+                <span><i class="fa-solid fa-ticket text-amber-600 mr-1"></i>Kode Pemilih Demo: <strong class="font-mono bg-white px-1.5 py-0.5 rounded border border-amber-200">IPM-1001</strong> / <strong class="font-mono bg-white px-1.5 py-0.5 rounded border border-amber-200">IPM-1002</strong></span>
+                <span><i class="fa-solid fa-user-shield text-amber-600 mr-1"></i>Admin Demo: <strong class="font-mono bg-white px-1.5 py-0.5 rounded border border-amber-200">admin@ipm-merauke.sch.id</strong> / <strong class="font-mono bg-white px-1.5 py-0.5 rounded border border-amber-200">admin123</strong></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- 3. TOP OFFICIAL HEADER & COUNTDOWN                                    -->
+    <!-- ===================================================================== -->
+    <header id="main-header" class="glass-header border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+            <!-- Brand / Logo -->
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden shrink-0 shadow-sm">
+                    <img id="header-org-logo" src="https://placehold.co/100x100/138A36/FFCC00?text=IPM" alt="Logo Organisasi" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100/138A36/FFCC00?text=IPM'">
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span id="header-school-name" class="text-xs font-bold text-slate-600 uppercase tracking-wide">SMP MUHAMMADIYAH MERAUKE</span>
+                    </div>
+                    <h1 id="header-event-title" class="text-sm sm:text-base font-black text-slate-900 tracking-tight leading-tight mt-0.5">
+                        E-VOTING MUSYAWARAH RANTING (MUSYRAN)
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Countdown Timer & Secret Admin Entry -->
+            <div class="flex items-center gap-3 ml-auto sm:ml-0">
+                <div class="bg-slate-900 text-white px-3.5 py-1.5 rounded-xl flex items-center gap-2.5 shadow-sm border border-slate-700">
+                    <div class="text-right">
+                        <div class="text-[9px] uppercase tracking-wider text-secondary font-bold">Sisa Waktu Pemilihan</div>
+                        <div id="header-countdown" class="font-mono text-xs sm:text-sm font-bold tracking-wider">-- : -- : --</div>
+                    </div>
+                    <i class="fa-regular fa-clock text-secondary text-base"></i>
+                </div>
+
+                <!-- Secret Admin Trigger -->
+                <button id="btn-open-admin-login" title="Panel Panitia / Admin" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-primary transition border border-slate-200">
+                    <i class="fa-solid fa-user-gear"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===================================================================== -->
+    <!-- 4. MAIN VIEWPORT CONTAINER                                            -->
+    <!-- ===================================================================== -->
+    <main class="flex-1 flex flex-col">
+
+        <!-- VIEW A: VOTER LOGIN GATE (HALAMAN DEPAN PEMILIH) -->
+        <section id="view-voter-login" class="flex-1 flex items-center justify-center p-4 sm:p-6 animate-fade-in">
+            <div class="w-full max-w-4xl grid grid-cols-1 lg:grid-cols-12 bg-white rounded-3xl shadow-xl border border-slate-200/80 overflow-hidden">
+                
+                <!-- Left Branding & Instructions Column -->
+                <div class="lg:col-span-5 bg-primary text-white p-7 sm:p-8 flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute -right-12 -bottom-12 w-48 h-48 rounded-full bg-white/10 pointer-events-none"></div>
+                    <div class="absolute -left-10 -top-10 w-36 h-36 rounded-full bg-secondary/20 pointer-events-none"></div>
+
+                    <div class="relative z-10">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-sm text-secondary text-xs font-bold uppercase tracking-wider mb-5">
+                            <i class="fa-solid fa-check-to-slot"></i> Sistem Pemungutan Suara Digital
+                        </div>
+                        <h2 id="hero-main-title" class="text-2xl sm:text-3xl font-black leading-tight tracking-tight mb-2">
+                            E-VOTING MUSYAWARAH RANTING (MUSYRAN)
+                        </h2>
+                        <p id="hero-subtitle" class="text-sm font-medium text-white/90 mb-6">
+                            Pemilihan Formatur PR IPM SMP Muhammadiyah Merauke
+                        </p>
+                        <div class="p-4 rounded-2xl bg-black/15 border border-white/15 text-xs leading-relaxed text-white/95">
+                            <p id="hero-welcome-text">
+                                Selamat datang di Bilik Suara Digital. Masukkan Kode Pemilih DPT Anda atau pindai QR Code pada kartu pemilih. Pilih tepat <strong>3 (tiga) calon formatur</strong> terbaik pilihan Anda. Pilihan bersifat rahasia dan final.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 mt-8 pt-4 border-t border-white/15 flex items-center justify-between text-[11px] text-white/80">
+                        <span><i class="fa-solid fa-lock mr-1 text-secondary"></i> Enkripsi Anti-Double Vote</span>
+                        <span>LUBER & JURDIL</span>
+                    </div>
+                </div>
+
+                <!-- Right Voter Authentication Form -->
+                <div class="lg:col-span-7 p-7 sm:p-10 flex flex-col justify-center bg-white">
+                    <div class="mb-6">
+                        <span class="text-xs font-bold uppercase tracking-wider text-primary">Autentikasi Pemilih Tetap (DPT)</span>
+                        <h3 class="text-xl sm:text-2xl font-black text-slate-900 mt-1">Masuk ke Bilik Suara</h3>
+                        <p class="text-xs text-slate-500 mt-1">Gunakan Kode Pemilih unik yang tertera pada kartu login Anda.</p>
+                    </div>
+
+                    <!-- Voter ID Input Form -->
+                    <form id="form-voter-login" class="space-y-4" novalidate>
+                        <div>
+                            <label for="input-voter-id" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                                Kode Pemilih (ID DPT)
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fa-solid fa-id-card"></i>
+                                </div>
+                                <input type="text" id="input-voter-id" autocomplete="off" placeholder="Contoh: IPM-1001"
+                                    class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border-2 border-slate-200 rounded-xl font-mono text-base font-bold uppercase text-slate-900 focus:outline-none focus:border-primary focus:bg-white transition">
+                            </div>
+                            <!-- Red Error Message Below Input -->
+                            <p id="voter-login-error" class="hidden mt-2 text-xs font-bold text-red-600 flex items-center gap-1.5 bg-red-50 border border-red-200 px-3 py-2 rounded-lg">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                                <span id="voter-login-error-text">Kode pemilih tidak valid.</span>
+                            </p>
+                        </div>
+
+                        <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-primary hover:opacity-95 text-white font-bold text-sm uppercase tracking-wider shadow-lg shadow-primary/25 transition flex items-center justify-center gap-2 cursor-pointer">
+                            <span>Masuk Bilik Suara</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </form>
+
+                    <!-- Divider -->
+                    <div class="relative my-6">
+                        <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-200"></div></div>
+                        <div class="relative flex justify-center text-xs"><span class="px-3 bg-white text-slate-400 font-medium uppercase">Atau Pindai Kartu</span></div>
+                    </div>
+
+                    <!-- QR Code Scanner Button & Container -->
+                    <div>
+                        <button type="button" id="btn-toggle-qr-scanner" class="w-full py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs uppercase tracking-wider border border-slate-300 transition flex items-center justify-center gap-2 cursor-pointer">
+                            <i class="fa-solid fa-qrcode text-primary text-base"></i>
+                            <span id="qr-scanner-btn-text">Scan QR Code Kartu Pemilih</span>
+                        </button>
+                        <div id="qr-reader-wrapper" class="hidden mt-4 rounded-2xl overflow-hidden border-2 border-primary bg-slate-900 p-2">
+                            <div id="qr-reader" class="w-full rounded-xl overflow-hidden"></div>
+                            <p class="text-[11px] text-center text-white/80 py-2">Arahkan QR Code pada kartu pemilih ke kamera perangkat</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW B: BALLOT BOOTH (BILIK SUARA PEMILIHAN 3 FORMATUR) -->
+        <section id="view-ballot-booth" class="hidden max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 animate-fade-in">
+            <!-- Ballot Sticky Status Bar -->
+            <div class="bg-white rounded-2xl shadow-md border border-slate-200 p-4 sm:p-5 mb-6 flex flex-wrap items-center justify-between gap-4 sticky top-[72px] z-20">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-person-booth text-lg"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-bold text-slate-500 uppercase">Pemilih Aktif:</span>
+                            <span id="ballot-voter-badge" class="font-mono text-xs font-black px-2 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-200">IPM-XXXX</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-bold text-slate-800 mt-0.5">
+                            Pilih <span class="text-primary underline">TEPAT 3 (TIGA)</span> Calon Formatur Pilihan Anda
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+                    <div class="px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-center">
+                        <span class="text-[10px] font-bold uppercase text-slate-400 block">Terpilih</span>
+                        <span id="ballot-selection-count" class="text-base font-black text-primary">0 / 3</span>
+                    </div>
+
+                    <button id="btn-submit-ballot" disabled class="px-6 py-3 rounded-xl bg-slate-200 text-slate-400 font-bold text-xs sm:text-sm uppercase tracking-wider transition flex items-center gap-2 cursor-not-allowed">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Kirim Pilihan</span>
+                    </button>
+
+                    <button id="btn-cancel-ballot" class="px-3.5 py-3 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs uppercase border border-red-200 transition cursor-pointer" title="Keluar Bilik Suara">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 9 Formatur Cards Grid -->
+            <div id="ballot-candidates-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 pb-12">
+                <!-- Rendered dynamically via JS -->
+            </div>
+        </section>
+
+        <!-- VIEW C: VOTE SUCCESS & CONFETTI SCREEN -->
+        <section id="view-vote-success" class="hidden flex-1 flex items-center justify-center p-4 sm:p-6 animate-fade-in">
+            <div class="max-w-lg w-full bg-white rounded-3xl shadow-xl border border-slate-200 p-8 sm:p-10 text-center">
+                <div class="w-20 h-20 rounded-full bg-green-100 text-primary mx-auto flex items-center justify-center text-4xl mb-5 shadow-inner animate-zoom-pop">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">Suara Sah Tercatat</span>
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-3 mb-2">Berhasil Memilih!</h2>
+                <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                    Terima kasih telah menggunakan hak pilih Anda dalam Musyawarah Ranting (MUSYRAN) <strong>PR IPM SMP Muhammadiyah Merauke</strong>. Suara Anda telah tersimpan secara aman dan permanen.
+                </p>
+                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-500 mb-6">
+                    ID Pemilih otomatis dikunci untuk mencegah pemilihan ganda. Silakan tinggalkan bilik suara untuk pemilih berikutnya.
+                </div>
+                <button id="btn-finish-vote-return" class="w-full py-3.5 px-6 rounded-xl bg-primary hover:opacity-95 text-white font-bold text-sm uppercase tracking-wider shadow-lg transition cursor-pointer">
+                    Selesai & Kembali ke Halaman Awal
+                </button>
+            </div>
+        </section>
+
+        <!-- VIEW D: ADMIN DASHBOARD (DESKTOP FIXED SIDEBAR + MOBILE BOTTOM NAV) -->
+        <section id="view-admin-dashboard" class="hidden flex-1 flex flex-col lg:flex-row bg-surface min-h-[calc(100vh-68px)] animate-fade-in">
+            
+            <!-- Desktop Fixed Left Sidebar -->
+            <aside class="hidden lg:flex lg:flex-col lg:w-64 bg-white border-r border-slate-200 p-4 justify-between shrink-0">
+                <div class="space-y-1.5">
+                    <div class="px-3 py-2.5 mb-3 rounded-xl bg-slate-900 text-white">
+                        <div class="text-[10px] uppercase tracking-wider text-secondary font-bold">Panel Kontrol Panitia</div>
+                        <div class="text-sm font-black truncate">Administrator MUSYRAN</div>
+                    </div>
+
+                    <button data-admin-tab="live" class="admin-nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-primary text-white shadow-sm transition cursor-pointer">
+                        <i class="fa-solid fa-chart-pie w-4 text-center"></i>
+                        <span>Hasil Live & Podium</span>
+                    </button>
+                    <button data-admin-tab="paslon" class="admin-nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-600 hover:bg-slate-100 transition cursor-pointer">
+                        <i class="fa-solid fa-users-rectangle w-4 text-center"></i>
+                        <span>Data Paslon (9)</span>
+                    </button>
+                    <button data-admin-tab="dpt" class="admin-nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-600 hover:bg-slate-100 transition cursor-pointer">
+                        <i class="fa-solid fa-qrcode w-4 text-center"></i>
+                        <span>Daftar Hadir & DPT</span>
+                    </button>
+                    <button data-admin-tab="settings" class="admin-nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-600 hover:bg-slate-100 transition cursor-pointer">
+                        <i class="fa-solid fa-sliders w-4 text-center"></i>
+                        <span>Pengaturan & Tampilan</span>
+                    </button>
+                </div>
+
+                <div class="pt-4 border-t border-slate-200 space-y-2">
+                    <button id="btn-admin-logout-desktop" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs uppercase border border-red-200 transition cursor-pointer">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Keluar Admin</span>
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Mobile Floating Bottom Navigation Bar -->
+            <nav class="lg:hidden fixed bottom-0 inset-x-0 z-40 glass-header border-t border-slate-200 px-2 py-1.5 flex items-center justify-around shadow-lg">
+                <button data-admin-tab="live" class="admin-nav-btn flex flex-col items-center justify-center py-1.5 px-3 rounded-xl text-primary font-bold text-[10px]">
+                    <i class="fa-solid fa-chart-pie text-base mb-0.5"></i>
+                    <span>Live</span>
+                </button>
+                <button data-admin-tab="paslon" class="admin-nav-btn flex flex-col items-center justify-center py-1.5 px-3 rounded-xl text-slate-500 font-bold text-[10px]">
+                    <i class="fa-solid fa-users-rectangle text-base mb-0.5"></i>
+                    <span>Paslon</span>
+                </button>
+                <button data-admin-tab="dpt" class="admin-nav-btn flex flex-col items-center justify-center py-1.5 px-3 rounded-xl text-slate-500 font-bold text-[10px]">
+                    <i class="fa-solid fa-qrcode text-base mb-0.5"></i>
+                    <span>DPT</span>
+                </button>
+                <button data-admin-tab="settings" class="admin-nav-btn flex flex-col items-center justify-center py-1.5 px-3 rounded-xl text-slate-500 font-bold text-[10px]">
+                    <i class="fa-solid fa-sliders text-base mb-0.5"></i>
+                    <span>Atur</span>
+                </button>
+                <button id="btn-admin-logout-mobile" class="flex flex-col items-center justify-center py-1.5 px-3 rounded-xl text-red-600 font-bold text-[10px]">
+                    <i class="fa-solid fa-right-from-bracket text-base mb-0.5"></i>
+                    <span>Keluar</span>
+                </button>
+            </nav>
+
+            <!-- Admin Main Tab Content Workspace -->
+            <div class="flex-1 p-4 sm:p-6 lg:p-8 pb-24 lg:pb-8 max-w-7xl w-full mx-auto space-y-6">
+
+                <!-- TAB 1: HASIL LIVE, GRAFIK REAL-TIME & PENGUMUMAN PANGGUNG -->
+                <div id="admin-tab-live" class="admin-tab-pane space-y-6">
+                    <!-- Top KPI Cards -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold uppercase text-slate-500">Pemilih Telah Memilih</span>
+                                <span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center"><i class="fa-solid fa-user-check"></i></span>
+                            </div>
+                            <div class="text-3xl font-black text-slate-900">
+                                <span id="stat-voted-count">0</span> <span class="text-sm font-medium text-slate-400">/ <span id="stat-total-dpt">0</span> DPT</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold uppercase text-slate-500">Partisipasi Pemilih</span>
+                                <span class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center"><i class="fa-solid fa-percent"></i></span>
+                            </div>
+                            <div class="flex items-baseline justify-between">
+                                <span id="stat-participation-pct" class="text-3xl font-black text-slate-900">0%</span>
+                                <span id="stat-remaining-dpt" class="text-xs font-medium text-slate-500">0 Menunggu</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-2.5 rounded-full mt-3 overflow-hidden">
+                                <div id="stat-participation-bar" class="bg-primary h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold uppercase text-slate-500">Total Suara Formatur</span>
+                                <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center"><i class="fa-solid fa-box-open"></i></span>
+                            </div>
+                            <div class="text-3xl font-black text-slate-900">
+                                <span id="stat-total-ballots">0</span> <span class="text-xs font-medium text-slate-400">Suara Masuk</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exclusive Stage Announcements Launcher Banner -->
+                    <div class="bg-slate-900 text-white rounded-3xl p-6 shadow-lg border border-slate-800 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5">
+                        <div>
+                            <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-secondary/20 text-secondary text-[11px] font-bold uppercase tracking-wider mb-2">
+                                <i class="fa-solid fa-tv"></i> Mode Layar Proyektor & Acara Resmi
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-black">Pengumuman Eksklusif Hasil MUSYRAN</h3>
+                            <p class="text-xs text-slate-300 mt-1 max-w-2xl">
+                                Tayangkan seremoni pengumuman 3 Formatur suara terbanyak dan pelantikan 3 Inti PR IPM lengkap dengan animasi panggung, spotlight, confetti, dan efek suara.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap gap-3 w-full lg:w-auto">
+                            <button id="btn-launch-stage-top3" class="flex-1 lg:flex-none px-5 py-3 rounded-xl bg-primary hover:opacity-95 text-white font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 cursor-pointer">
+                                <i class="fa-solid fa-trophy text-secondary"></i>
+                                <span>Pengumuman 3 Besar</span>
+                            </button>
+                            <button id="btn-launch-stage-inti" class="flex-1 lg:flex-none px-5 py-3 rounded-xl bg-secondary hover:opacity-95 text-slate-900 font-black text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 cursor-pointer">
+                                <i class="fa-solid fa-award"></i>
+                                <span>Pengumuman 3 Inti</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Live Charts (Bar & Doughnut) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                            <h4 class="text-sm font-black uppercase tracking-wider text-slate-800 mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-chart-column text-primary"></i> Grafik Perolehan Suara Real-Time
+                            </h4>
+                            <div class="relative h-72 w-full">
+                                <canvas id="chart-votes-bar"></canvas>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                            <h4 class="text-sm font-black uppercase tracking-wider text-slate-800 mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-chart-pie text-primary"></i> Persentase Perolehan Suara
+                            </h4>
+                            <div class="relative h-72 w-full">
+                                <canvas id="chart-votes-doughnut"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Top 3 Podium Preview & Tie Warning -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                            <div>
+                                <h4 class="text-sm font-black uppercase tracking-wider text-slate-800">Klasemen Sementara 3 Besar Formatur</h4>
+                                <p class="text-xs text-slate-500">Otomatis dihitung dari suara masuk di database secara real-time.</p>
+                            </div>
+                            <span id="live-tie-badge" class="hidden px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">
+                                <i class="fa-solid fa-triangle-exclamation mr-1"></i> Terdeteksi Suara Seri!
+                            </span>
+                        </div>
+                        <div id="live-top3-preview-container" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <!-- Rendered dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: DATA PASLON (EDIT NAMA, KELAS, VISI/MISI, KOMPRES FOTO) -->
+                <div id="admin-tab-paslon" class="admin-tab-pane hidden space-y-6">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-3">
+                        <div>
+                            <h3 class="text-base font-black text-slate-900">Manajemen 9 Calon Formatur</h3>
+                            <p class="text-xs text-slate-500">Unggah foto otomatis dikompresi via Canvas API agar ringan di database.</p>
+                        </div>
+                    </div>
+                    <div id="admin-paslon-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- TAB 3: DAFTAR HADIR & GENERATOR DPT (TANPA NAMA + QR LOGIN CARDS) -->
+                <div id="admin-tab-dpt" class="admin-tab-pane hidden space-y-6">
+                    <!-- DPT Action Controls -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                        <!-- Add Single DPT -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <h4 class="text-sm font-black uppercase tracking-wider text-slate-800 mb-1">Tambah Kode Pemilih DPT</h4>
+                            <p class="text-xs text-slate-500 mb-4">DPT bersifat anonim (tanpa nama) menggunakan Kode ID unik.</p>
+                            <form id="form-add-single-dpt" class="flex flex-wrap sm:flex-nowrap gap-2.5">
+                                <input type="text" id="input-new-dpt-id" placeholder="Kode ID (misal: IPM-2026)" required
+                                    class="flex-1 px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl font-mono text-xs font-bold uppercase focus:outline-none focus:border-primary">
+                                <select id="select-new-dpt-category" class="px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:border-primary">
+                                    <option value="Siswa">Siswa</option>
+                                    <option value="Pendidik">Pendidik</option>
+                                </select>
+                                <button type="submit" class="px-4 py-2.5 rounded-xl bg-primary text-white font-bold text-xs uppercase tracking-wider hover:opacity-95 transition cursor-pointer shrink-0">
+                                    <i class="fa-solid fa-plus mr-1"></i> Tambah
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Generate Random DPT Codes -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <h4 class="text-sm font-black uppercase tracking-wider text-slate-800 mb-1">Generate Kode Acak DPT (Massal)</h4>
+                            <p class="text-xs text-slate-500 mb-4">Buat puluhan kode acak DPT tanpa nama secara instan.</p>
+                            <form id="form-generate-random-dpt" class="flex flex-wrap sm:flex-nowrap gap-2.5">
+                                <input type="number" id="input-random-dpt-qty" min="1" max="200" value="10" required
+                                    class="w-24 px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold text-center focus:outline-none focus:border-primary">
+                                <select id="select-random-dpt-category" class="flex-1 px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:border-primary">
+                                    <option value="Siswa">Kategori: Siswa</option>
+                                    <option value="Pendidik">Kategori: Pendidik</option>
+                                </select>
+                                <button type="submit" class="px-4 py-2.5 rounded-xl bg-slate-900 text-secondary font-bold text-xs uppercase tracking-wider hover:bg-slate-800 transition cursor-pointer shrink-0">
+                                    <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Generate Acak
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Search, Filter & Print All QR Cards Toolbar -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <div class="flex flex-wrap items-center gap-2.5 flex-1">
+                                <div class="relative flex-1 min-w-[200px] max-w-xs">
+                                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                                    <input type="text" id="input-search-dpt" placeholder="Cari Kode Pemilih..."
+                                        class="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-primary">
+                                </div>
+                                <select id="filter-dpt-status" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700">
+                                    <option value="ALL">Semua Status</option>
+                                    <option value="Menunggu">Menunggu</option>
+                                    <option value="Telah Memilih">Telah Memilih</option>
+                                </select>
+                                <select id="filter-dpt-category" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700">
+                                    <option value="ALL">Semua Kategori</option>
+                                    <option value="Siswa">Siswa</option>
+                                    <option value="Pendidik">Pendidik</option>
+                                </select>
+                            </div>
+
+                            <button id="btn-print-all-qr" class="px-4 py-2.5 rounded-xl bg-primary text-white font-bold text-xs uppercase tracking-wider shadow-sm hover:opacity-95 transition flex items-center gap-2 cursor-pointer">
+                                <i class="fa-solid fa-print"></i>
+                                <span>Download / Print Semua Kartu QR</span>
+                            </button>
+                        </div>
+
+                        <!-- DPT Table -->
+                        <div class="overflow-x-auto rounded-xl border border-slate-200">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-black uppercase text-slate-600">
+                                        <th class="py-3 px-4">No</th>
+                                        <th class="py-3 px-4">Kode Pemilih (ID)</th>
+                                        <th class="py-3 px-4">Kategori</th>
+                                        <th class="py-3 px-4">Status</th>
+                                        <th class="py-3 px-4">Waktu Rekam</th>
+                                        <th class="py-3 px-4 text-right">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dpt-table-body" class="divide-y divide-slate-100 text-xs">
+                                    <!-- Rendered dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: PENGATURAN, EDIT TAMPILAN HALAMAN UTAMA, PENETAPAN 3 INTI & BAP -->
+                <div id="admin-tab-settings" class="admin-tab-pane hidden space-y-6">
+                    
+                    <!-- A. Edit Tampilan Halaman Utama -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+                            <div>
+                                <h3 class="text-base font-black text-slate-900 flex items-center gap-2">
+                                    <i class="fa-solid fa-palette text-primary"></i> Edit Tampilan Halaman Utama
+                                </h3>
+                                <p class="text-xs text-slate-500">Sesuaikan judul acara, instansi, teks sambutan, warna tema, dan logo organisasi secara real-time.</p>
+                            </div>
+                        </div>
+
+                        <form id="form-appearance-settings" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Judul Utama Acara</label>
+                                <input type="text" id="set-event-title" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold focus:outline-none focus:border-primary">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Nama Instansi / Sekolah</label>
+                                <input type="text" id="set-school-name" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold focus:outline-none focus:border-primary">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Subjudul / Periode Kepengurusan</label>
+                                <input type="text" id="set-event-subtitle" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium focus:outline-none focus:border-primary">
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Warna Utama (Hijau)</label>
+                                    <div class="flex items-center gap-2">
+                                        <input type="color" id="set-primary-color" value="#138A36" class="h-10 w-14 rounded-lg border border-slate-300 cursor-pointer">
+                                        <span id="label-primary-color" class="font-mono text-xs text-slate-600">#138A36</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Warna Aksen (Kuning)</label>
+                                    <div class="flex items-center gap-2">
+                                        <input type="color" id="set-secondary-color" value="#FFCC00" class="h-10 w-14 rounded-lg border border-slate-300 cursor-pointer">
+                                        <span id="label-secondary-color" class="font-mono text-xs text-slate-600">#FFCC00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Teks Sambutan & Instruksi Halaman Utama</label>
+                                <textarea id="set-welcome-text" rows="2" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs focus:outline-none focus:border-primary"></textarea>
+                            </div>
+                            <div class="md:col-span-2 flex flex-wrap items-center justify-between gap-4 pt-2">
+                                <div class="flex items-center gap-3">
+                                    <img id="preview-settings-logo" src="https://placehold.co/100x100/138A36/FFCC00?text=IPM" class="w-12 h-12 rounded-xl object-cover border border-slate-300">
+                                    <div>
+                                        <label class="inline-block px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs cursor-pointer border border-slate-300 transition">
+                                            <i class="fa-solid fa-image mr-1 text-primary"></i> Unggah Logo Organisasi
+                                            <input type="file" id="input-org-logo-file" accept="image/*" class="hidden">
+                                        </label>
+                                        <p class="text-[11px] text-slate-400 mt-1">Otomatis dikompres via Canvas API</p>
+                                    </div>
+                                </div>
+                                <button type="submit" class="px-6 py-3 rounded-xl bg-primary text-white font-bold text-xs uppercase tracking-wider shadow-md hover:opacity-95 transition cursor-pointer">
+                                    <i class="fa-solid fa-floppy-disk mr-1.5"></i> Simpan Tampilan Utama
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- B. Penetapan 3 Inti PR IPM (Musyawarah Formatur) -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="mb-4 pb-3 border-b border-slate-100">
+                            <h3 class="text-base font-black text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-award text-amber-500"></i> Penetapan 3 Inti PR IPM (Hasil Musyawarah)
+                            </h3>
+                            <p class="text-xs text-slate-500">Pilih 3 formatur berbeda untuk jabatan inti. Digunakan pada layar Pengumuman 3 Inti.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                <label class="block text-xs font-black uppercase text-primary mb-2">1. Ketua Umum</label>
+                                <select id="select-inti-ketua" class="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:border-primary">
+                                    <option value="">-- Pilih Formatur --</option>
+                                </select>
+                                <div id="card-preview-ketua" class="mt-3"></div>
+                            </div>
+
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                <label class="block text-xs font-black uppercase text-primary mb-2">2. Sekretaris Umum</label>
+                                <select id="select-inti-sekretaris" class="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:border-primary">
+                                    <option value="">-- Pilih Formatur --</option>
+                                </select>
+                                <div id="card-preview-sekretaris" class="mt-3"></div>
+                            </div>
+
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                <label class="block text-xs font-black uppercase text-primary mb-2">3. Bendahara Umum</label>
+                                <select id="select-inti-bendahara" class="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:border-primary">
+                                    <option value="">-- Pilih Formatur --</option>
+                                </select>
+                                <div id="card-preview-bendahara" class="mt-3"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <p id="inti-validation-msg" class="text-xs font-bold text-red-600 hidden"></p>
+                            <button id="btn-save-3-inti" class="ml-auto px-6 py-3 rounded-xl bg-slate-900 text-secondary font-bold text-xs uppercase tracking-wider hover:bg-slate-800 transition cursor-pointer">
+                                <i class="fa-solid fa-check-double mr-1.5"></i> Simpan Penetapan 3 Inti
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- C. Batas Waktu Pemilihan, Ekspor BAP & Reset Database -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Countdown Datetime -->
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                            <div>
+                                <h4 class="text-sm font-black uppercase tracking-wider text-slate-800 mb-1">Batas Waktu Pemilihan (Countdown)</h4>
+                                <p class="text-xs text-slate-500 mb-4">Mengatur hitung mundur pada bagian atas aplikasi.</p>
+                                <input type="datetime-local" id="input-settings-deadline" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold focus:outline-none focus:border-primary mb-4">
+                            </div>
+                            <button id="btn-save-deadline" class="w-full py-3 rounded-xl bg-primary text-white font-bold text-xs uppercase tracking-wider hover:opacity-95 transition cursor-pointer">
+                                Simpan Batas Waktu
+                            </button>
+                        </div>
+
+                        <!-- Export BAP & Danger Zone Reset -->
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                            <div>
+                                <h4 class="text-sm font-black uppercase tracking-wider text-slate-800 mb-1">Berita Acara & Pemeliharaan Data</h4>
+                                <p class="text-xs text-slate-500 mb-3">Unduh laporan resmi hasil musyawarah atau reset seluruh data.</p>
+                                <button id="btn-export-bap" class="w-full py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 cursor-pointer">
+                                    <i class="fa-solid fa-file-lines text-secondary"></i>
+                                    <span>Ekspor Berita Acara Pemilihan (.TXT)</span>
+                                </button>
+                            </div>
+
+                            <div class="pt-3 border-t border-slate-100">
+                                <button id="btn-trigger-reset-db" class="w-full py-3 px-4 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs uppercase tracking-wider border border-red-200 transition flex items-center justify-center gap-2 cursor-pointer">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    <span>Reset Seluruh Database Suara & DPT</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- ===================================================================== -->
+    <!-- 5. EXCLUSIVE CEREMONIAL STAGE OVERLAY (PROJECTOR / FULLSCREEN MODE)   -->
+    <!-- ===================================================================== -->
+    <div id="ceremony-stage-overlay" class="hidden fixed inset-0 z-[80] bg-slate-950 text-white flex flex-col justify-between overflow-y-auto select-none">
+        <!-- Animated Spotlights -->
+        <div class="fixed inset-0 pointer-events-none overflow-hidden">
+            <div class="stage-spotlight-left absolute -top-20 left-0 w-[60vw] h-[120vh]"></div>
+            <div class="stage-spotlight-right absolute -top-20 right-0 w-[60vw] h-[120vh]"></div>
+        </div>
+
+        <!-- Top Stage Header Bar -->
+        <div class="relative z-10 px-4 sm:px-8 py-4 border-b border-white/10 glass-dark flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <img id="stage-org-logo" src="https://placehold.co/100x100/138A36/FFCC00?text=IPM" class="w-10 h-10 rounded-xl object-cover border border-secondary/50">
+                <div>
+                    <div class="text-[10px] font-bold uppercase tracking-widest text-secondary">Sidang Pleno Musyawarah Ranting</div>
+                    <h2 id="stage-header-title" class="text-sm sm:text-base font-black tracking-wide uppercase">PR IPM SMP MUHAMMADIYAH MERAUKE</h2>
+                </div>
+            </div>
+
+            <!-- Audio & Fullscreen Controls -->
+            <div class="flex items-center gap-2">
+                <div class="hidden sm:flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-xl border border-white/10">
+                    <i class="fa-solid fa-volume-high text-secondary text-xs"></i>
+                    <input type="range" id="stage-volume-slider" min="0" max="1" step="0.05" value="0.7" class="w-20 accent-secondary cursor-pointer">
+                </div>
+                <button id="btn-stage-mute" class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold border border-white/15 transition cursor-pointer" title="Aktif/Nonaktifkan Suara">
+                    <i id="stage-mute-icon" class="fa-solid fa-volume-high text-secondary"></i>
+                </button>
+                <button id="btn-stage-fullscreen" class="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold uppercase tracking-wider border border-white/15 transition flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-expand text-secondary"></i>
+                    <span class="hidden sm:inline">Layar Penuh</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Center Stage Dynamic Presentation Area -->
+        <div id="stage-center-canvas" class="relative z-10 flex-1 flex flex-col items-center justify-center p-4 sm:p-8 max-w-6xl w-full mx-auto text-center">
+            <!-- Populated dynamically by Stage Controller -->
+        </div>
+
+        <!-- Bottom Admin Stage Playback Dock -->
+        <div class="relative z-10 px-4 py-3.5 border-t border-white/10 glass-dark">
+            <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-2.5">
+                <button id="btn-stage-start" class="px-5 py-2.5 rounded-xl bg-primary hover:opacity-95 text-white font-black text-xs uppercase tracking-wider shadow-lg flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-play"></i>
+                    <span id="label-btn-stage-start">MULAI PENGUMUMAN</span>
+                </button>
+                <button id="btn-stage-pause" class="hidden px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-pause"></i>
+                    <span>JEDA ANIMASI</span>
+                </button>
+                <button id="btn-stage-resume" class="hidden px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-forward-step"></i>
+                    <span>LANJUTKAN</span>
+                </button>
+                <button id="btn-stage-restart" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider border border-white/15 flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>ULANGI</span>
+                </button>
+                <button id="btn-stage-exit" class="px-4 py-2.5 rounded-xl bg-red-600/90 hover:bg-red-600 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-xmark"></i>
+                    <span>AKHIRI PENGUMUMAN</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- 6. CUSTOM MODAL SYSTEM (ANTI-ALERT / ANTI-CONFIRM / ANTI-PROMPT)      -->
+    <!-- ===================================================================== -->
+    <div id="custom-modal-backdrop" class="hidden fixed inset-0 z-[90] bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
+        <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-slate-200 overflow-hidden">
+            <div id="custom-modal-header" class="px-6 py-4 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
+                <h3 id="custom-modal-title" class="text-sm font-black uppercase tracking-wider text-slate-900">Konfirmasi</h3>
+                <button id="custom-modal-close-x" class="text-slate-400 hover:text-slate-700 p-1 cursor-pointer">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="custom-modal-body" class="p-6 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                <!-- Dynamic Modal Content -->
+            </div>
+            <div id="custom-modal-footer" class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-end gap-2.5">
+                <!-- Dynamic Modal Buttons -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-20 lg:bottom-6 right-4 z-[95] flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Hidden Printable Sheet for All QR Voter Cards -->
+    <div id="print-qr-sheet" class="hidden"></div>
+
+    <!-- ===================================================================== -->
+    <!-- 7. JAVASCRIPT MODULE & FIREBASE REAL-TIME ENGINE                      -->
+    <!-- ===================================================================== -->
+    <script type="module">
+        // =====================================================================
+        // SAKLAR DEPLOYMENT (WAJIB DI ATAS SCRIPT MODULE)
+        // =====================================================================
+        const IS_PREVIEW = true; // Ubah menjadi false SAAT DEPLOY / PUBLISH agar terhubung murni ke Firebase tanpa data dummy
+
+        // PASTE FIREBASE CONFIG ANDA DI SINI
+        const firebaseConfig = {
+            apiKey: "API_KEY_ANDA",
+            authDomain: "PROJECT_ID.firebaseapp.com",
+            projectId: "PROJECT_ID",
+            storageBucket: "PROJECT_ID.appspot.com",
+            messagingSenderId: "SENDER_ID",
+            appId: "APP_ID"
+        };
+
+        // Import Firebase Modular SDK v10.12.2
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import {
+            getFirestore, collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc,
+            onSnapshot, runTransaction, writeBatch, query, orderBy
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // =====================================================================
+        // PWA DYNAMIC SERVICE WORKER REGISTRATION (SINGLE-FILE BLOB)
+        // =====================================================================
+        if ('serviceWorker' in navigator) {
+            const swScript = `
+                const CACHE_NAME = 'ipm-evoting-v1';
+                self.addEventListener('install', e => self.skipWaiting());
+                self.addEventListener('activate', e => e.waitUntil(clients.claim()));
+                self.addEventListener('fetch', e => {
+                    e.respondWith(fetch(e.request).catch(() => new Response('Offline mode')));
+                });
+            `;
+            const swBlob = new Blob([swScript], { type: 'application/javascript' });
+            navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(() => {});
+        }
+
+        // =====================================================================
+        // DEFAULT CANDIDATES LIST (9 FORMATUR RESMI)
+        // =====================================================================
+        const DEFAULT_CANDIDATES_TEMPLATE = [
+            { id: 'c01', nomor: 1, nama: 'Adnan Mahardyka', kelas: '8a', visi: 'Mewujudkan pelajar Muhammadiyah yang berkemajuan, disiplin, dan berakhlak mulia.', foto: 'https://placehold.co/300x360/138A36/FFFFFF?text=01+Adnan', suara: 0 },
+            { id: 'c02', nomor: 2, nama: 'Kevin Tri Nugroho', kelas: '8e', visi: 'Mengoptimalkan potensi kreatif dan literasi digital kader IPM SMP Muhammadiyah Merauke.', foto: 'https://placehold.co/300x360/138A36/FFFFFF?text=02+Kevin', suara: 0 },
+            { id: 'c03', nomor: 3, nama: 'Dafanny Aisyah Zakiya', kelas: '8f', visi: 'Membangun solidaritas pelajar yang aktif, peduli sosial, dan berprestasi.', foto: 'https://placehold.co/300x360/138A36/FFFFFF?text=03+Dafanny', suara: 0 },
+            { id: 'c04', nomor: 4, nama: 'Hafist Syidhik Dhurahman Iswanto', kelas: '8f', visi: 'Menjadikan PR IPM sebagai wadah aspirasi dan inovasi siswa yang responsif.', foto: 'https://placehold.co/300x360/138A36/FFFFFF?text=04+Hafist', suara: 0 },
+            { id: 'c05', nomor: 5, nama: 'Alif Mahadika A.L', kelas: '8a', visi: 'Memperkuat budaya keislaman dan semangat kolaborasi antar kelas.', foto: 'https://placehold.co/300x360/138A36/FFFFFF?text=05+Alif', suara: 0 },
+            { id: 'c06', nomor: 6, nama: 'Fatin Fauzia Putri Ramadhan', kelas: '8f', visi: 'Menciptakan lingkungan sekolah yang bersih, ramah, dan penuh semangat belajar.', foto: 'https://placehold.co/300x360/138A36/FFFFFF?text=06+Fatin', suara: 0 },
+            { id: 'c07', nomor: 7, nama: 'Habibah Nur Jihan', kelas: '8a', visi: 'Mengembangkan program keputrian, dakwah pelajar, dan kepedulian lingkungan.', foto: 'https://placehold.co/300x360/138A36/FFFFFF?text=07+Habibah', suara: 0 },
+            { id: 'c08', nomor: 8, nama: 'Kayla Putri Syahta Aprili', kelas: '8e', visi: 'Mendorong partisipasi aktif siswa dalam seni, olahraga, dan organisasi.', foto: 'https://placehold.co/300x360/138A36/FFFFFF?text=08+Kayla', suara: 0 },
+            { id: 'c09', nomor: 9, nama: 'Dzakiyyah Alifah Daud', kelas: '8b', visi: 'Meneguhkan integritas kader IPM yang amanah, cerdas, dan menginspirasi.', foto: 'https://placehold.co/300x360/138A36/FFFFFF?text=09+Dzakiyyah', suara: 0 }
+        ];
+
+        // =====================================================================
+        // IN-MEMORY APPLICATION STATE (ZERO LOCALSTORAGE)
+        // =====================================================================
+        const state = {
+            isAdminAuthenticated: false,
+            adminUserEmail: '',
+            activeVoterId: null,
+            selectedCandidateIds: [],
+            activeAdminTab: 'live',
+            qrScannerInstance: null,
+            isQrScanning: false,
+            charts: { bar: null, doughnut: null },
+            candidates: [],
+            dpt: [], // Struktur tanpa nama: { id, kategori, status, votedAt }
+            settings: {
+                eventTitle: 'E-VOTING MUSYAWARAH RANTING (MUSYRAN)',
+                eventSubtitle: 'Pemilihan Formatur PR IPM SMP Muhammadiyah Merauke',
+                schoolName: 'SMP MUHAMMADIYAH MERAUKE',
+                welcomeText: 'Selamat datang di Bilik Suara Digital. Masukkan Kode Pemilih DPT Anda atau pindai QR Code pada kartu pemilih. Pilih tepat 3 (tiga) calon formatur terbaik pilihan Anda. Pilihan bersifat rahasia dan final.',
+                primaryColor: '#138A36',
+                secondaryColor: '#FFCC00',
+                orgLogo: 'https://placehold.co/100x100/138A36/FFCC00?text=IPM',
+                deadline: new Date(Date.now() + 4 * 3600 * 1000).toISOString().slice(0, 16)
+            },
+            coreOfficers: {
+                ketua: '',
+                sekretaris: '',
+                bendahara: ''
+            },
+            announcementStatus: {
+                top3: 'belum',
+                inti: 'belum'
+            }
+        };
+
+        // Firebase References (Initialized only when IS_PREVIEW === false)
+        let fbApp = null;
+        let fbAuth = null;
+        let fbDb = null;
+
+        // =====================================================================
+        // WEB AUDIO API SOUND SYNTHESIZER (BEBAS LISENSI & AUTOPLAY SAFE)
+        // =====================================================================
+        class StageAudioEngine {
+            constructor() {
+                this.ctx = null;
+                this.muted = false;
+                this.volume = 0.7;
+                this.activeNodes = [];
+            }
+
+            ensureContext() {
+                if (!this.ctx) {
+                    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                    this.ctx = new AudioCtx();
+                }
+                if (this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+            }
+
+            stopAll() {
+                this.activeNodes.forEach(node => {
+                    try { node.stop(); } catch (_) {}
+                });
+                this.activeNodes = [];
+            }
+
+            playTone(freq, duration, type = 'sine', gainVal = 0.25, delay = 0) {
+                if (this.muted) return;
+                this.ensureContext();
+                const now = this.ctx.currentTime + delay;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, now);
+                gain.gain.setValueAtTime(0.001, now);
+                gain.gain.exponentialRampToValueAtTime(gainVal * this.volume, now + 0.03);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + duration + 0.02);
+                this.activeNodes.push(osc);
+            }
+
+            playCountdownBeep(isFinal = false) {
+                this.playTone(isFinal ? 880 : 523.25, isFinal ? 0.45 : 0.22, 'triangle', 0.35);
+            }
+
+            playDrumRoll(durationSec = 2.2) {
+                if (this.muted) return;
+                this.ensureContext();
+                const steps = Math.floor(durationSec / 0.07);
+                for (let i = 0; i < steps; i++) {
+                    const progress = i / steps;
+                    this.playTone(110 + progress * 45, 0.06, 'sawtooth', 0.12 + progress * 0.15, i * 0.07);
+                }
+            }
+
+            playFanfare() {
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((f, idx) => {
+                    this.playTone(f, 0.45, 'triangle', 0.3, idx * 0.13);
+                });
+                this.playTone(1046.50, 0.9, 'sine', 0.35, 0.55);
+            }
+
+            playApplause(durationSec = 2.8) {
+                if (this.muted) return;
+                this.ensureContext();
+                const bufferSize = this.ctx.sampleRate * durationSec;
+                const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    const env = Math.sin((i / bufferSize) * Math.PI);
+                    data[i] = (Math.random() * 2 - 1) * env * 0.4;
+                }
+                const noise = this.ctx.createBufferSource();
+                noise.buffer = buffer;
+
+                const filter = this.ctx.createBiquadFilter();
+                filter.type = 'bandpass';
+                filter.frequency.value = 1200;
+
+                const gain = this.ctx.createGain();
+                gain.gain.value = 0.3 * this.volume;
+
+                noise.connect(filter);
+                filter.connect(gain);
+                gain.connect(this.ctx.destination);
+                noise.start();
+                this.activeNodes.push(noise);
+            }
+        }
+        const stageAudio = new StageAudioEngine();
+
+        // =====================================================================
+        // CUSTOM MODAL & TOAST SYSTEM (STRICTLY NO NATIVE POPUPS)
+        // =====================================================================
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const colors = {
+                success: 'bg-slate-900 text-white border-primary',
+                error: 'bg-red-600 text-white border-red-800',
+                info: 'bg-slate-800 text-secondary border-slate-700'
+            };
+            const icons = {
+                success: 'fa-circle-check text-primary',
+                error: 'fa-circle-exclamation text-white',
+                info: 'fa-circle-info text-secondary'
+            };
+            toast.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-xl border-l-4 text-xs font-bold animate-fade-in ${colors[type] || colors.success}`;
+            toast.innerHTML = `<i class="fa-solid ${icons[type] || icons.success} text-sm"></i><span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3200);
+        }
+
+        function openCustomModal({ title, bodyHtml, buttons = [] }) {
+            const backdrop = document.getElementById('custom-modal-backdrop');
+            document.getElementById('custom-modal-title').textContent = title;
+            document.getElementById('custom-modal-body').innerHTML = bodyHtml;
+            const footer = document.getElementById('custom-modal-footer');
+            footer.innerHTML = '';
+
+            buttons.forEach(btn => {
+                const el = document.createElement('button');
+                el.type = 'button';
+                el.className = btn.className || 'px-4 py-2.5 rounded-xl bg-primary text-white font-bold text-xs uppercase tracking-wider cursor-pointer';
+                el.innerHTML = btn.label;
+                el.addEventListener('click', () => {
+                    if (btn.onClick) btn.onClick();
+                });
+                footer.appendChild(el);
+            });
+
+            backdrop.classList.remove('hidden');
+        }
+
+        function closeCustomModal() {
+            document.getElementById('custom-modal-backdrop').classList.add('hidden');
+        }
+        document.getElementById('custom-modal-close-x').addEventListener('click', closeCustomModal);
+
+        // =====================================================================
+        // CANVAS API IMAGE COMPRESSION HELPER
+        // =====================================================================
+        function compressImageToBase64(file, maxWidth = 360, maxHeight = 420, quality = 0.78) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        let width = img.width;
+                        let height = img.height;
+                        if (width > maxWidth || height > maxHeight) {
+                            const ratio = Math.min(maxWidth / width, maxHeight / height);
+                            width = Math.round(width * ratio);
+                            height = Math.round(height * ratio);
+                        }
+                        const canvas = document.createElement('canvas');
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        resolve(canvas.toDataURL('image/jpeg', quality));
+                    };
+                    img.onerror = reject;
+                    img.src = event.target.result;
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // =====================================================================
+        // INITIALIZATION: DUAL MODE (IS_PREVIEW vs PRODUCTION FIREBASE)
+        // =====================================================================
+        async function bootstrapApplication() {
+            const loader = document.getElementById('initial-loader');
+            const loaderText = document.getElementById('loader-status-text');
+
+            if (IS_PREVIEW) {
+                // MODE PREVIEW: 100% IN-MEMORY, MINIMAL DUMMY DATA, ZERO FIRESTORE
+                document.getElementById('preview-mode-banner').classList.remove('hidden');
+                loaderText.textContent = 'Memuat lingkungan simulasi Preview (In-Memory)...';
+
+                state.candidates = JSON.parse(JSON.stringify(DEFAULT_CANDIDATES_TEMPLATE));
+                // Maksimal 2 data dummy DPT tanpa nama untuk demonstrasi
+                state.dpt = [
+                    { id: 'IPM-1001', kategori: 'Siswa', status: 'Menunggu', votedAt: '-' },
+                    { id: 'IPM-1002', kategori: 'Pendidik', status: 'Menunggu', votedAt: '-' }
+                ];
+
+                applyAppearanceToUI();
+                refreshAllViews();
+
+                setTimeout(() => {
+                    loader.classList.add('opacity-0');
+                    setTimeout(() => loader.classList.add('hidden'), 450);
+                }, 600);
+            } else {
+                // MODE PRODUKSI: ZERO DUMMY DATA, PURE FIREBASE AUTH & FIRESTORE REAL-TIME
+                document.getElementById('preview-mode-banner').classList.add('hidden');
+                loaderText.textContent = 'Menghubungkan ke Firebase Cloud Firestore...';
+
+                try {
+                    fbApp = initializeApp(firebaseConfig);
+                    fbAuth = getAuth(fbApp);
+                    fbDb = getFirestore(fbApp);
+
+                    // Monitor Firebase Auth State untuk Admin
+                    onAuthStateChanged(fbAuth, (user) => {
+                        state.isAdminAuthenticated = !!user;
+                        state.adminUserEmail = user ? user.email : '';
+                    });
+
+                    // Real-time Listener: Candidates
+                    onSnapshot(collection(fbDb, 'candidates'), (snapshot) => {
+                        const list = [];
+                        snapshot.forEach(docSnap => list.push({ id: docSnap.id, ...docSnap.data() }));
+                        list.sort((a, b) => (a.nomor || 0) - (b.nomor || 0));
+                        state.candidates = list;
+                        refreshAllViews();
+                    });
+
+                    // Real-time Listener: DPT (Tanpa Nama)
+                    onSnapshot(collection(fbDb, 'dpt'), (snapshot) => {
+                        const list = [];
+                        snapshot.forEach(docSnap => list.push({ id: docSnap.id, ...docSnap.data() }));
+                        state.dpt = list;
+                        refreshAllViews();
+                    });
+
+                    // Real-time Listener: Settings & Appearance
+                    onSnapshot(doc(fbDb, 'settings', 'general'), (docSnap) => {
+                        if (docSnap.exists()) {
+                            state.settings = { ...state.settings, ...docSnap.data() };
+                            applyAppearanceToUI();
+                        }
+                    });
+
+                    // Real-time Listener: Core Officers (3 Inti)
+                    onSnapshot(doc(fbDb, 'settings', 'core_officers'), (docSnap) => {
+                        if (docSnap.exists()) {
+                            state.coreOfficers = { ...state.coreOfficers, ...docSnap.data() };
+                            renderAdminSettingsTab();
+                        }
+                    });
+
+                    applyAppearanceToUI();
+                    setTimeout(() => {
+                        loader.classList.add('opacity-0');
+                        setTimeout(() => loader.classList.add('hidden'), 450);
+                    }, 500);
+                } catch (err) {
+                    loaderText.textContent = 'Gagal terhubung ke Firebase. Periksa konfigurasi firebaseConfig.';
+                }
+            }
+
+            startHeaderCountdownTimer();
+        }
+
+        // =====================================================================
+        // APPLY APPEARANCE SETTINGS TO UI
+        // =====================================================================
+        function applyAppearanceToUI() {
+            const s = state.settings;
+            document.documentElement.style.setProperty('--color-primary', s.primaryColor || '#138A36');
+            document.documentElement.style.setProperty('--color-secondary', s.secondaryColor || '#FFCC00');
+
+            document.getElementById('header-event-title').textContent = s.eventTitle;
+            document.getElementById('header-school-name').textContent = s.schoolName;
+            document.getElementById('header-org-logo').src = s.orgLogo;
+            document.getElementById('stage-org-logo').src = s.orgLogo;
+            document.getElementById('stage-header-title').textContent = `PR IPM ${s.schoolName}`;
+
+            document.getElementById('hero-main-title').textContent = s.eventTitle;
+            document.getElementById('hero-subtitle').textContent = s.eventSubtitle;
+            document.getElementById('hero-welcome-text').textContent = s.welcomeText;
+
+            // Populate Admin Settings Inputs
+            const setTitle = document.getElementById('set-event-title');
+            if (setTitle) {
+                setTitle.value = s.eventTitle;
+                document.getElementById('set-school-name').value = s.schoolName;
+                document.getElementById('set-event-subtitle').value = s.eventSubtitle;
+                document.getElementById('set-primary-color').value = s.primaryColor;
+                document.getElementById('label-primary-color').textContent = s.primaryColor;
+                document.getElementById('set-secondary-color').value = s.secondaryColor;
+                document.getElementById('label-secondary-color').textContent = s.secondaryColor;
+                document.getElementById('set-welcome-text').value = s.welcomeText;
+                document.getElementById('preview-settings-logo').src = s.orgLogo;
+                document.getElementById('input-settings-deadline').value = s.deadline;
+            }
+        }
+
+        // =====================================================================
+        // COUNTDOWN TIMER
+        // =====================================================================
+        function startHeaderCountdownTimer() {
+            const el = document.getElementById('header-countdown');
+            setInterval(() => {
+                const target = new Date(state.settings.deadline).getTime();
+                const now = Date.now();
+                const diff = target - now;
+                if (isNaN(target) || diff <= 0) {
+                    el.textContent = 'WAKTU HABIS';
+                    el.classList.add('text-red-400');
+                    return;
+                }
+                el.classList.remove('text-red-400');
+                const hrs = Math.floor(diff / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+                el.textContent = `${String(hrs).padStart(2, '0')} : ${String(mins).padStart(2, '0')} : ${String(secs).padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        // =====================================================================
+        // VIEW NAVIGATION CONTROLLER
+        // =====================================================================
+        function switchMainView(viewId) {
+            stopQrScannerIfActive();
+            ['view-voter-login', 'view-ballot-booth', 'view-vote-success', 'view-admin-dashboard'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(viewId).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function refreshAllViews() {
+            if (!document.getElementById('view-ballot-booth').classList.contains('hidden')) {
+                renderBallotCandidates();
+            }
+            if (!document.getElementById('view-admin-dashboard').classList.contains('hidden')) {
+                renderAdminLiveDashboard();
+                renderAdminPaslonTab();
+                renderAdminDptTab();
+                renderAdminSettingsTab();
+            }
+        }
+
+        // =====================================================================
+        // VOTER AUTHENTICATION & QR SCANNER
+        // =====================================================================
+        async function authenticateVoterId(rawCode) {
+            const code = (rawCode || '').trim().toUpperCase();
+            const errBox = document.getElementById('voter-login-error');
+            const errText = document.getElementById('voter-login-error-text');
+            errBox.classList.add('hidden');
+
+            if (!code) {
+                errText.textContent = 'Silakan masukkan Kode Pemilih (ID DPT) Anda terlebih dahulu.';
+                errBox.classList.remove('hidden');
+                return;
+            }
+
+            if (state.candidates.length < 3) {
+                errText.textContent = 'Data calon formatur belum tersedia. Hubungi panitia pemilihan.';
+                errBox.classList.remove('hidden');
+                return;
+            }
+
+            if (IS_PREVIEW) {
+                const voter = state.dpt.find(d => d.id.toUpperCase() === code);
+                if (!voter) {
+                    errText.textContent = `Kode Pemilih "${code}" tidak terdaftar dalam Daftar Pemilih Tetap (DPT).`;
+                    errBox.classList.remove('hidden');
+                    return;
+                }
+                if (voter.status === 'Telah Memilih') {
+                    errText.textContent = `Akses Ditolak: Kode "${code}" sudah digunakan untuk memilih sebelumnya.`;
+                    errBox.classList.remove('hidden');
+                    return;
+                }
+                enterBallotBooth(voter.id);
+            } else {
+                try {
+                    const voterRef = doc(fbDb, 'dpt', code);
+                    const snap = await getDoc(voterRef);
+                    if (!snap.exists()) {
+                        errText.textContent = `Kode Pemilih "${code}" tidak terdaftar dalam Daftar Pemilih Tetap (DPT).`;
+                        errBox.classList.remove('hidden');
+                        return;
+                    }
+                    const data = snap.data();
+                    if (data.status === 'Telah Memilih') {
+                        errText.textContent = `Akses Ditolak: Kode "${code}" sudah digunakan untuk memilih sebelumnya.`;
+                        errBox.classList.remove('hidden');
+                        return;
+                    }
+                    enterBallotBooth(code);
+                } catch (err) {
+                    errText.textContent = 'Terjadi gangguan koneksi saat memverifikasi kode pemilih.';
+                    errBox.classList.remove('hidden');
+                }
+            }
+        }
+
+        document.getElementById('form-voter-login').addEventListener('submit', (e) => {
+            e.preventDefault();
+            authenticateVoterId(document.getElementById('input-voter-id').value);
+        });
+
+        function enterBallotBooth(voterId) {
+            state.activeVoterId = voterId;
+            state.selectedCandidateIds = [];
+            document.getElementById('input-voter-id').value = '';
+            document.getElementById('ballot-voter-badge').textContent = voterId;
+            updateBallotSelectionUI();
+            renderBallotCandidates();
+            switchMainView('view-ballot-booth');
+        }
+
+        // QR Scanner Toggle
+        document.getElementById('btn-toggle-qr-scanner').addEventListener('click', () => {
+            const wrapper = document.getElementById('qr-reader-wrapper');
+            const btnText = document.getElementById('qr-scanner-btn-text');
+
+            if (state.isQrScanning) {
+                stopQrScannerIfActive();
+                return;
+            }
+
+            wrapper.classList.remove('hidden');
+            btnText.textContent = 'Tutup Kamera Scanner';
+            state.isQrScanning = true;
+
+            state.qrScannerInstance = new Html5Qrcode('qr-reader');
+            state.qrScannerInstance.start(
+                { facingMode: 'environment' },
+                { fps: 10, qrbox: { width: 220, height: 220 } },
+                (decodedText) => {
+                    stopQrScannerIfActive();
+                    document.getElementById('input-voter-id').value = decodedText.trim().toUpperCase();
+                    authenticateVoterId(decodedText);
+                },
+                () => {}
+            ).catch(() => {
+                stopQrScannerIfActive();
+                showToast('Kamera tidak tersedia atau izin ditolak browser.', 'error');
+            });
+        });
+
+        function stopQrScannerIfActive() {
+            const wrapper = document.getElementById('qr-reader-wrapper');
+            const btnText = document.getElementById('qr-scanner-btn-text');
+            if (state.qrScannerInstance && state.isQrScanning) {
+                state.qrScannerInstance.stop().catch(() => {});
+            }
+            state.isQrScanning = false;
+            wrapper.classList.add('hidden');
+            btnText.textContent = 'Scan QR Code Kartu Pemilih';
+        }
+
+        // =====================================================================
+        // BALLOT BOOTH RENDERING & VOTING SUBMISSION (EXACTLY 3 FORMATUR)
+        // =====================================================================
+        function renderBallotCandidates() {
+            const grid = document.getElementById('ballot-candidates-grid');
+            grid.innerHTML = '';
+
+            state.candidates.forEach(cand => {
+                const isSelected = state.selectedCandidateIds.includes(cand.id);
+                const card = document.createElement('div');
+                card.className = `bg-white rounded-3xl overflow-hidden border-2 transition-all duration-200 flex flex-col justify-between shadow-sm ${
+                    isSelected ? 'border-primary ring-4 ring-primary/15 shadow-lg -translate-y-1' : 'border-slate-200 hover:border-slate-300'
+                }`;
+
+                card.innerHTML = `
+                    <div>
+                        <div class="relative h-56 bg-slate-100 overflow-hidden">
+                            <img src="${cand.foto}" alt="${cand.nama}" class="w-full h-full object-cover object-top" onerror="this.src='https://placehold.co/300x360/138A36/FFFFFF?text=Formatur'">
+                            <div class="absolute top-3 left-3 w-10 h-10 rounded-xl bg-slate-900/90 text-secondary font-black text-base flex items-center justify-center shadow-md border border-white/15">
+                                ${String(cand.nomor).padStart(2, '0')}
+                            </div>
+                            <div class="absolute top-3 right-3 px-3 py-1 rounded-lg bg-white/95 text-slate-800 font-black text-xs uppercase shadow-sm">
+                                Kelas ${cand.kelas}
+                            </div>
+                            ${isSelected ? `
+                                <div class="absolute inset-0 bg-primary/25 flex items-center justify-center backdrop-blur-[1px]">
+                                    <span class="px-4 py-1.5 rounded-full bg-primary text-white font-black text-xs uppercase tracking-wider shadow-lg">
+                                        <i class="fa-solid fa-check mr-1"></i> Terpilih
+                                    </span>
+                                </div>
+                            ` : ''}
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-base font-black text-slate-900 leading-snug">${cand.nama}</h3>
+                            <p class="text-xs text-slate-500 mt-2 leading-relaxed line-clamp-3">${cand.visi || 'Siap mengemban amanah sebagai formatur PR IPM SMP Muhammadiyah Merauke.'}</p>
+                        </div>
+                    </div>
+                    <div class="px-5 pb-5 pt-2">
+                        <button type="button" data-cand-id="${cand.id}" class="btn-coblos-cand w-full py-3 px-4 rounded-xl font-black text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 cursor-pointer ${
+                            isSelected
+                                ? 'bg-secondary text-slate-900 shadow-md'
+                                : 'bg-primary hover:opacity-95 text-white shadow-sm'
+                        }">
+                            <i class="fa-solid ${isSelected ? 'fa-square-check' : 'fa-check-to-slot'}"></i>
+                            <span>${isSelected ? 'BATALKAN PILIHAN' : 'COBLOS FORMATUR'}</span>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            document.querySelectorAll('.btn-coblos-cand').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.getAttribute('data-cand-id');
+                    toggleCandidateSelection(id);
+                });
+            });
+        }
+
+        function toggleCandidateSelection(candId) {
+            const idx = state.selectedCandidateIds.indexOf(candId);
+            if (idx > -1) {
+                state.selectedCandidateIds.splice(idx, 1);
+            } else {
+                if (state.selectedCandidateIds.length >= 3) {
+                    openCustomModal({
+                        title: 'Batas Pilihan Maksimal',
+                        bodyHtml: '<p>Anda sudah memilih <strong>3 (tiga) calon formatur</strong>. Batalkan salah satu pilihan terlebih dahulu jika ingin mengganti pilihan Anda.</p>',
+                        buttons: [{
+                            label: 'Mengerti',
+                            onClick: closeCustomModal
+                        }]
+                    });
+                    return;
+                }
+                state.selectedCandidateIds.push(candId);
+            }
+            updateBallotSelectionUI();
+            renderBallotCandidates();
+        }
+
+        function updateBallotSelectionUI() {
+            const count = state.selectedCandidateIds.length;
+            document.getElementById('ballot-selection-count').textContent = `${count} / 3`;
+            const submitBtn = document.getElementById('btn-submit-ballot');
+
+            if (count === 3) {
+                submitBtn.disabled = false;
+                submitBtn.className = 'px-6 py-3 rounded-xl bg-primary hover:opacity-95 text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-primary/25 transition flex items-center gap-2 cursor-pointer';
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.className = 'px-6 py-3 rounded-xl bg-slate-200 text-slate-400 font-bold text-xs sm:text-sm uppercase tracking-wider transition flex items-center gap-2 cursor-not-allowed';
+            }
+        }
+
+        document.getElementById('btn-cancel-ballot').addEventListener('click', () => {
+            openCustomModal({
+                title: 'Keluar Bilik Suara?',
+                bodyHtml: '<p>Anda belum mengirimkan suara. Kode pemilih Anda tetap aktif dan belum terpakai. Keluar ke halaman depan?</p>',
+                buttons: [
+                    { label: 'Batal', className: 'px-4 py-2.5 rounded-xl bg-slate-200 text-slate-700 font-bold text-xs uppercase cursor-pointer', onClick: closeCustomModal },
+                    {
+                        label: 'Ya, Keluar',
+                        className: 'px-4 py-2.5 rounded-xl bg-red-600 text-white font-bold text-xs uppercase cursor-pointer',
+                        onClick: () => {
+                            closeCustomModal();
+                            state.activeVoterId = null;
+                            state.selectedCandidateIds = [];
+                            switchMainView('view-voter-login');
+                        }
+                    }
+                ]
+            });
+        });
+
+        document.getElementById('btn-submit-ballot').addEventListener('click', () => {
+            if (state.selectedCandidateIds.length !== 3) return;
+            const chosen = state.candidates.filter(c => state.selectedCandidateIds.includes(c.id));
+            const listHtml = chosen.map(c => `
+                <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                    <span class="w-6 h-6 rounded-lg bg-primary text-white font-black text-xs flex items-center justify-center">${c.nomor}</span>
+                    <span class="font-bold text-slate-900">${c.nama}</span>
+                    <span class="ml-auto text-[11px] font-bold text-slate-500">(${c.kelas})</span>
+                </li>
+            `).join('');
+
+            openCustomModal({
+                title: 'Konfirmasi Pengiriman Suara',
+                bodyHtml: `
+                    <p class="mb-3">Apakah Anda yakin dengan <strong>3 pilihan formatur</strong> berikut? Pilihan bersifat <strong>FINAL</strong> dan tidak dapat diubah kembali:</p>
+                    <ul class="space-y-2 mb-2">${listHtml}</ul>
+                `,
+                buttons: [
+                    { label: 'Periksa Lagi', className: 'px-4 py-2.5 rounded-xl bg-slate-200 text-slate-700 font-bold text-xs uppercase cursor-pointer', onClick: closeCustomModal },
+                    {
+                        label: '<i class="fa-solid fa-check-double mr-1"></i> Sah & Kirim Suara',
+                        className: 'px-5 py-2.5 rounded-xl bg-primary text-white font-bold text-xs uppercase shadow-md cursor-pointer',
+                        onClick: async () => {
+                            closeCustomModal();
+                            await commitVoteTransaction();
+                        }
+                    }
+                ]
+            });
+        });
+
+        async function commitVoteTransaction() {
+            const voterId = state.activeVoterId;
+            const chosenIds = [...state.selectedCandidateIds];
+            const timestamp = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+            if (IS_PREVIEW) {
+                const voter = state.dpt.find(d => d.id === voterId);
+                if (!voter || voter.status === 'Telah Memilih') {
+                    showToast('Kode pemilih sudah digunakan!', 'error');
+                    return;
+                }
+                voter.status = 'Telah Memilih';
+                voter.votedAt = timestamp;
+                chosenIds.forEach(cid => {
+                    const cand = state.candidates.find(c => c.id === cid);
+                    if (cand) cand.suara = (cand.suara || 0) + 1;
+                });
+                triggerVoteSuccessScreen();
+            } else {
+                try {
+                    await runTransaction(fbDb, async (transaction) => {
+                        const voterRef = doc(fbDb, 'dpt', voterId);
+                        const voterSnap = await transaction.get(voterRef);
+                        if (!voterSnap.exists() || voterSnap.data().status === 'Telah Memilih') {
+                            throw new Error('DOUBLE_VOTE');
+                        }
+
+                        const candDocs = [];
+                        for (const cid of chosenIds) {
+                            const cRef = doc(fbDb, 'candidates', cid);
+                            const cSnap = await transaction.get(cRef);
+                            if (cSnap.exists()) {
+                                candDocs.push({ ref: cRef, currentVotes: cSnap.data().suara || 0 });
+                            }
+                        }
+
+                        transaction.update(voterRef, {
+                            status: 'Telah Memilih',
+                            votedAt: timestamp
+                        });
+
+                        candDocs.forEach(item => {
+                            transaction.update(item.ref, { suara: item.currentVotes + 1 });
+                        });
+                    });
+                    triggerVoteSuccessScreen();
+                } catch (err) {
+                    showToast('Gagal menyimpan suara atau kode pemilih sudah terpakai.', 'error');
+                }
+            }
+        }
+
+        function triggerVoteSuccessScreen() {
+            state.activeVoterId = null;
+            state.selectedCandidateIds = [];
+            switchMainView('view-vote-success');
+
+            // Confetti Warna Merah, Putih, Biru sesuai spesifikasi
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 110,
+                    spread: 75,
+                    origin: { y: 0.6 },
+                    colors: ['#EF4444', '#FFFFFF', '#2563EB']
+                });
+            }
+        }
+
+        document.getElementById('btn-finish-vote-return').addEventListener('click', () => {
+            switchMainView('view-voter-login');
+        });
+
+        // =====================================================================
+        // ADMIN LOGIN (FIREBASE AUTH EMAIL & PASSWORD)
+        // =====================================================================
+        document.getElementById('btn-open-admin-login').addEventListener('click', () => {
+            if (state.isAdminAuthenticated) {
+                openAdminDashboard();
+                return;
+            }
+
+            openCustomModal({
+                title: 'Login Administrator MUSYRAN',
+                bodyHtml: `
+                    <form id="form-modal-admin-login" class="space-y-3.5">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Email Admin</label>
+                            <input type="email" id="admin-login-email" required placeholder="admin@ipm-merauke.sch.id"
+                                class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold focus:outline-none focus:border-primary">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Password</label>
+                            <input type="password" id="admin-login-password" required placeholder="••••••••"
+                                class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold focus:outline-none focus:border-primary">
+                        </div>
+                        <p id="admin-login-err" class="hidden text-xs font-bold text-red-600 bg-red-50 border border-red-200 px-3 py-2 rounded-lg"></p>
+                    </form>
+                `,
+                buttons: [
+                    { label: 'Batal', className: 'px-4 py-2.5 rounded-xl bg-slate-200 text-slate-700 font-bold text-xs uppercase cursor-pointer', onClick: closeCustomModal },
+                    {
+                        label: '<i class="fa-solid fa-lock-open mr-1"></i> Masuk Dasbor',
+                        className: 'px-5 py-2.5 rounded-xl bg-primary text-white font-bold text-xs uppercase shadow-md cursor-pointer',
+                        onClick: async () => {
+                            const email = document.getElementById('admin-login-email').value.trim();
+                            const password = document.getElementById('admin-login-password').value;
+                            const errEl = document.getElementById('admin-login-err');
+                            errEl.classList.add('hidden');
+
+                            if (!email || !password) {
+                                errEl.textContent = 'Email dan password wajib diisi.';
+                                errEl.classList.remove('hidden');
+                                return;
+                            }
+
+                            if (IS_PREVIEW) {
+                                if (email === 'admin@ipm-merauke.sch.id' && password === 'admin123') {
+                                    state.isAdminAuthenticated = true;
+                                    state.adminUserEmail = email;
+                                    closeCustomModal();
+                                    openAdminDashboard();
+                                    showToast('Berhasil masuk sebagai Admin (Mode Preview)');
+                                } else {
+                                    errEl.textContent = 'Email atau password demo salah. Gunakan admin@ipm-merauke.sch.id / admin123';
+                                    errEl.classList.remove('hidden');
+                                }
+                            } else {
+                                try {
+                                    const cred = await signInWithEmailAndPassword(fbAuth, email, password);
+                                    state.isAdminAuthenticated = true;
+                                    state.adminUserEmail = cred.user.email;
+                                    closeCustomModal();
+                                    openAdminDashboard();
+                                    showToast('Autentikasi Firebase berhasil');
+                                } catch (err) {
+                                    errEl.textContent = 'Autentikasi gagal. Periksa kembali Email & Password Firebase Anda.';
+                                    errEl.classList.remove('hidden');
+                                }
+                            }
+                        }
+                    }
+                ]
+            });
+        });
+
+        function openAdminDashboard() {
+            switchMainView('view-admin-dashboard');
+            switchAdminTab(state.activeAdminTab || 'live');
+        }
+
+        function handleAdminLogout() {
+            if (!IS_PREVIEW && fbAuth) {
+                signOut(fbAuth).catch(() => {});
+            }
+            state.isAdminAuthenticated = false;
+            state.adminUserEmail = '';
+            switchMainView('view-voter-login');
+            showToast('Anda telah keluar dari panel Admin', 'info');
+        }
+        document.getElementById('btn-admin-logout-desktop').addEventListener('click', handleAdminLogout);
+        document.getElementById('btn-admin-logout-mobile').addEventListener('click', handleAdminLogout);
+
+        // Admin Tab Switching
+        function switchAdminTab(tabName) {
+            state.activeAdminTab = tabName;
+            document.querySelectorAll('.admin-tab-pane').forEach(p => p.classList.add('hidden'));
+            document.getElementById(`admin-tab-${tabName}`).classList.remove('hidden');
+
+            document.querySelectorAll('.admin-nav-btn').forEach(btn => {
+                const isTarget = btn.getAttribute('data-admin-tab') === tabName;
+                if (btn.closest('aside')) {
+                    btn.className = isTarget
+                        ? 'admin-nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-primary text-white shadow-sm transition cursor-pointer'
+                        : 'admin-nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-600 hover:bg-slate-100 transition cursor-pointer';
+                } else {
+                    btn.className = isTarget
+                        ? 'admin-nav-btn flex flex-col items-center justify-center py-1.5 px-3 rounded-xl text-primary font-bold text-[10px]'
+                        : 'admin-nav-btn flex flex-col items-center justify-center py-1.5 px-3 rounded-xl text-slate-500 font-bold text-[10px]';
+                }
+            });
+
+            if (tabName === 'live') renderAdminLiveDashboard();
+            if (tabName === 'paslon') renderAdminPaslonTab();
+            if (tabName === 'dpt') renderAdminDptTab();
+            if (tabName === 'settings') renderAdminSettingsTab();
+        }
+
+        document.querySelectorAll('.admin-nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchAdminTab(btn.getAttribute('data-admin-tab'));
+            });
+        });
+
+        // =====================================================================
+        // ADMIN TAB 1: HASIL LIVE, CHARTS & TOP 3 PODIUM PREVIEW
+        // =====================================================================
+        function computeTop3Analysis() {
+            const totalVotes = state.candidates.reduce((sum, c) => sum + (c.suara || 0), 0);
+            const sorted = [...state.candidates].sort((a, b) => (b.suara || 0) - (a.suara || 0));
+            const enriched = sorted.map(c => ({
+                ...c,
+                suara: c.suara || 0,
+                pct: totalVotes > 0 ? ((c.suara / totalVotes) * 100).toFixed(1) : '0.0'
+            }));
+
+            // Check ties around rank 1, 2, 3
+            let hasTie = false;
+            let tiedCandidates = [];
+            if (enriched.length >= 4 && enriched[2].suara > 0 && enriched[2].suara === enriched[3].suara) {
+                hasTie = true;
+                const tieScore = enriched[2].suara;
+                tiedCandidates = enriched.filter(c => c.suara === tieScore);
+            } else if (enriched.length >= 2 && enriched[0].suara > 0 && enriched[0].suara === enriched[1].suara) {
+                hasTie = true;
+                const tieScore = enriched[0].suara;
+                tiedCandidates = enriched.filter(c => c.suara === tieScore);
+            } else if (enriched.length >= 3 && enriched[1].suara > 0 && enriched[1].suara === enriched[2].suara) {
+                hasTie = true;
+                const tieScore = enriched[1].suara;
+                tiedCandidates = enriched.filter(c => c.suara === tieScore);
+            }
+
+            return {
+                totalVotes,
+                ranked: enriched,
+                top3: enriched.slice(0, 3),
+                hasTie,
+                tiedCandidates
+            };
+        }
+
+        function renderAdminLiveDashboard() {
+            const totalDpt = state.dpt.length;
+            const votedCount = state.dpt.filter(d => d.status === 'Telah Memilih').length;
+            const remainingCount = totalDpt - votedCount;
+            const pct = totalDpt > 0 ? Math.round((votedCount / totalDpt) * 100) : 0;
+            const analysis = computeTop3Analysis();
+
+            document.getElementById('stat-voted-count').textContent = votedCount;
+            document.getElementById('stat-total-dpt').textContent = totalDpt;
+            document.getElementById('stat-participation-pct').textContent = `${pct}%`;
+            document.getElementById('stat-remaining-dpt').textContent = `${remainingCount} Menunggu`;
+            document.getElementById('stat-participation-bar').style.width = `${pct}%`;
+            document.getElementById('stat-total-ballots').textContent = analysis.totalVotes;
+
+            // Update Charts
+            const labels = state.candidates.map(c => `${c.nomor}. ${c.nama.split(' ')[0]}`);
+            const voteData = state.candidates.map(c => c.suara || 0);
+            const palette = ['#138A36', '#FFCC00', '#0284C7', '#7C3AED', '#DB2777', '#EA580C', '#059669', '#4F46E5', '#D97706'];
+
+            const barCtx = document.getElementById('chart-votes-bar');
+            if (state.charts.bar) state.charts.bar.destroy();
+            state.charts.bar = new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: 'Perolehan Suara',
+                        data: voteData,
+                        backgroundColor: state.settings.primaryColor || '#138A36',
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+                }
+            });
+
+            const doughnutCtx = document.getElementById('chart-votes-doughnut');
+            if (state.charts.doughnut) state.charts.doughnut.destroy();
+            state.charts.doughnut = new Chart(doughnutCtx, {
+                type: 'doughnut',
+                data: {
+                    labels,
+                    datasets: [{
+                        data: voteData,
+                        backgroundColor: palette,
+                        borderWidth: 2,
+                        borderColor: '#FFFFFF'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right', labels: { boxWidth: 12, font: { size: 11 } } }
+                    }
+                }
+            });
+
+            // Live Top 3 Podium Preview
+            const tieBadge = document.getElementById('live-tie-badge');
+            const previewContainer = document.getElementById('live-top3-preview-container');
+            if (analysis.hasTie) {
+                tieBadge.classList.remove('hidden');
+            } else {
+                tieBadge.classList.add('hidden');
+            }
+
+            if (analysis.top3.length === 0) {
+                previewContainer.innerHTML = '<p class="text-xs text-slate-400 col-span-3 text-center py-6">Belum ada data calon formatur.</p>';
+                return;
+            }
+
+            previewContainer.innerHTML = analysis.top3.map((c, idx) => `
+                <div class="p-4 rounded-2xl border ${idx === 0 ? 'bg-amber-50/60 border-amber-300' : 'bg-slate-50 border-slate-200'} flex items-center gap-3.5">
+                    <div class="relative shrink-0">
+                        <img src="${c.foto}" class="w-14 h-14 rounded-xl object-cover border border-slate-300" onerror="this.src='https://placehold.co/100x100/138A36/FFFFFF?text=IPM'">
+                        <span class="absolute -top-2 -left-2 w-6 h-6 rounded-full ${idx === 0 ? 'bg-amber-400 text-slate-900' : 'bg-slate-800 text-white'} font-black text-xs flex items-center justify-center shadow">
+                            #${idx + 1}
+                        </span>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <div class="text-xs font-black text-slate-900 truncate">${c.nama}</div>
+                        <div class="text-[11px] font-bold text-slate-500">Kelas ${c.kelas} • No. Urut ${c.nomor}</div>
+                        <div class="mt-1.5 flex items-center gap-2">
+                            <span class="px-2 py-0.5 rounded bg-primary/10 text-primary font-black text-xs">${c.suara} Suara</span>
+                            <span class="text-xs font-bold text-slate-600">(${c.pct}%)</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // =====================================================================
+        // ADMIN TAB 2: DATA PASLON (EDIT & CANVAS IMAGE COMPRESSION)
+        // =====================================================================
+        function renderAdminPaslonTab() {
+            const grid = document.getElementById('admin-paslon-grid');
+            if (state.candidates.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full bg-white p-8 rounded-2xl border border-slate-200 text-center space-y-3">
+                        <p class="text-sm font-bold text-slate-700">Belum ada data calon formatur di database Firestore.</p>
+                        <button id="btn-init-9-candidates" class="px-5 py-2.5 rounded-xl bg-primary text-white font-bold text-xs uppercase tracking-wider cursor-pointer">
+                            Muat 9 Data Formatur Resmi MUSYRAN
+                        </button>
+                    </div>
+                `;
+                const initBtn = document.getElementById('btn-init-9-candidates');
+                if (initBtn) {
+                    initBtn.addEventListener('click', async () => {
+                        if (!IS_PREVIEW && fbDb) {
+                            const batch = writeBatch(fbDb);
+                            DEFAULT_CANDIDATES_TEMPLATE.forEach(c => {
+                                batch.set(doc(fbDb, 'candidates', c.id), c);
+                            });
+                            await batch.commit();
+                            showToast('9 Formatur berhasil ditambahkan ke Firestore');
+                        }
+                    });
+                }
+                return;
+            }
+
+            grid.innerHTML = state.candidates.map(cand => `
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+                    <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center gap-3">
+                        <img id="paslon-thumb-${cand.id}" src="${cand.foto}" class="w-14 h-16 rounded-xl object-cover border border-slate-300 bg-white" onerror="this.src='https://placehold.co/100x120/138A36/FFFFFF?text=IPM'">
+                        <div class="flex-1 min-w-0">
+                            <span class="px-2 py-0.5 rounded bg-slate-900 text-secondary font-black text-[10px] uppercase">No. Urut ${cand.nomor}</span>
+                            <div class="mt-1.5">
+                                <label class="inline-block px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 font-bold text-[11px] border border-slate-300 cursor-pointer transition">
+                                    <i class="fa-solid fa-camera mr-1 text-primary"></i> Ganti Foto
+                                    <input type="file" accept="image/*" data-upload-cand="${cand.id}" class="hidden input-paslon-photo">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 space-y-3 flex-1">
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="col-span-2">
+                                <label class="block text-[10px] font-bold uppercase text-slate-500 mb-1">Nama Lengkap</label>
+                                <input type="text" id="edit-cand-name-${cand.id}" value="${cand.nama}" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold uppercase text-slate-500 mb-1">Kelas</label>
+                                <input type="text" id="edit-cand-kelas-${cand.id}" value="${cand.kelas}" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-center">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase text-slate-500 mb-1">Visi & Misi</label>
+                            <textarea id="edit-cand-visi-${cand.id}" rows="2" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">${cand.visi || ''}</textarea>
+                        </div>
+                        <button type="button" data-save-cand="${cand.id}" class="btn-save-paslon w-full py-2.5 rounded-xl bg-primary hover:opacity-95 text-white font-bold text-xs uppercase tracking-wider transition cursor-pointer">
+                            Simpan Perubahan
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Photo Upload & Canvas Compression Listener
+            document.querySelectorAll('.input-paslon-photo').forEach(input => {
+                input.addEventListener('change', async (e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    const candId = input.getAttribute('data-upload-cand');
+                    try {
+                        const base64 = await compressImageToBase64(file, 320, 380, 0.78);
+                        document.getElementById(`paslon-thumb-${candId}`).src = base64;
+                        if (IS_PREVIEW) {
+                            const target = state.candidates.find(c => c.id === candId);
+                            if (target) target.foto = base64;
+                        } else {
+                            await updateDoc(doc(fbDb, 'candidates', candId), { foto: base64 });
+                        }
+                        openCustomModal({
+                            title: 'Foto Berhasil Diunggah',
+                            bodyHtml: '<p>Foto calon formatur telah dikompresi secara otomatis menggunakan Canvas API dan berhasil disimpan.</p>',
+                            buttons: [{ label: 'Selesai', onClick: closeCustomModal }]
+                        });
+                    } catch (_) {
+                        showToast('Gagal memproses file gambar.', 'error');
+                    }
+                });
+            });
+
+            // Save Candidate Text Fields Listener
+            document.querySelectorAll('.btn-save-paslon').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const candId = btn.getAttribute('data-save-cand');
+                    const nama = document.getElementById(`edit-cand-name-${candId}`).value.trim();
+                    const kelas = document.getElementById(`edit-cand-kelas-${candId}`).value.trim();
+                    const visi = document.getElementById(`edit-cand-visi-${candId}`).value.trim();
+
+                    if (!nama || !kelas) {
+                        showToast('Nama dan kelas wajib diisi.', 'error');
+                        return;
+                    }
+
+                    if (IS_PREVIEW) {
+                        const target = state.candidates.find(c => c.id === candId);
+                        if (target) {
+                            target.nama = nama;
+                            target.kelas = kelas;
+                            target.visi = visi;
+                        }
+                        showToast(`Data ${nama} diperbarui`);
+                    } else {
+                        await updateDoc(doc(fbDb, 'candidates', candId), { nama, kelas, visi });
+                        showToast(`Data ${nama} tersimpan ke Firestore`);
+                    }
+                });
+            });
+        }
+
+        // =====================================================================
+        // ADMIN TAB 3: DAFTAR HADIR & GENERATOR DPT (TANPA NAMA + PRINT QR)
+        // =====================================================================
+        document.getElementById('form-add-single-dpt').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const rawId = document.getElementById('input-new-dpt-id').value.trim().toUpperCase();
+            const kategori = document.getElementById('select-new-dpt-category').value;
+            if (!rawId) return;
+
+            if (state.dpt.some(d => d.id.toUpperCase() === rawId)) {
+                showToast(`Kode "${rawId}" sudah terdaftar di DPT!`, 'error');
+                return;
+            }
+
+            const newRecord = { id: rawId, kategori, status: 'Menunggu', votedAt: '-' };
+            if (IS_PREVIEW) {
+                state.dpt.unshift(newRecord);
+                renderAdminDptTab();
+                renderAdminLiveDashboard();
+            } else {
+                await setDoc(doc(fbDb, 'dpt', rawId), newRecord);
+            }
+            document.getElementById('input-new-dpt-id').value = '';
+            showToast(`Kode Pemilih ${rawId} ditambahkan`);
+        });
+
+        document.getElementById('form-generate-random-dpt').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const qty = Math.min(200, Math.max(1, parseInt(document.getElementById('input-random-dpt-qty').value, 10) || 10));
+            const kategori = document.getElementById('select-random-dpt-category').value;
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            const existingIds = new Set(state.dpt.map(d => d.id.toUpperCase()));
+            const generated = [];
+
+            while (generated.length < qty) {
+                let suffix = '';
+                for (let i = 0; i < 5; i++) {
+                    suffix += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                const code = `IPM-${suffix}`;
+                if (!existingIds.has(code)) {
+                    existingIds.add(code);
+                    generated.push({ id: code, kategori, status: 'Menunggu', votedAt: '-' });
+                }
+            }
+
+            if (IS_PREVIEW) {
+                state.dpt = [...generated, ...state.dpt];
+                renderAdminDptTab();
+                renderAdminLiveDashboard();
+            } else {
+                const batch = writeBatch(fbDb);
+                generated.forEach(item => {
+                    batch.set(doc(fbDb, 'dpt', item.id), item);
+                });
+                await batch.commit();
+            }
+            showToast(`${generated.length} Kode Acak DPT (Tanpa Nama) berhasil dibuat`);
+        });
+
+        function renderAdminDptTab() {
+            const tbody = document.getElementById('dpt-table-body');
+            const keyword = (document.getElementById('input-search-dpt').value || '').trim().toUpperCase();
+            const statusFilter = document.getElementById('filter-dpt-status').value;
+            const catFilter = document.getElementById('filter-dpt-category').value;
+
+            const filtered = state.dpt.filter(item => {
+                const matchKeyword = !keyword || item.id.toUpperCase().includes(keyword);
+                const matchStatus = statusFilter === 'ALL' || item.status === statusFilter;
+                const matchCat = catFilter === 'ALL' || item.kategori === catFilter;
+                return matchKeyword && matchStatus && matchCat;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-400 font-medium">Tidak ada data pemilih DPT yang sesuai.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map((item, idx) => `
+                <tr class="hover:bg-slate-50/80 transition">
+                    <td class="py-3 px-4 font-bold text-slate-400">${idx + 1}</td>
+                    <td class="py-3 px-4 font-mono font-black text-slate-900">${item.id}</td>
+                    <td class="py-3 px-4">
+                        <span class="px-2.5 py-1 rounded-lg text-[11px] font-bold ${item.kategori === 'Pendidik' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'}">
+                            ${item.kategori}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4">
+                        <span class="px-2.5 py-1 rounded-full text-[11px] font-bold ${item.status === 'Telah Memilih' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}">
+                            ${item.status}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4 font-mono text-slate-500">${item.votedAt || '-'}</td>
+                    <td class="py-3 px-4 text-right space-x-1">
+                        <button type="button" data-qr-id="${item.id}" data-qr-cat="${item.kategori}" class="btn-view-single-qr px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-primary hover:text-white text-slate-700 font-bold text-[11px] transition cursor-pointer" title="Lihat QR Kartu">
+                            <i class="fa-solid fa-qrcode"></i> QR
+                        </button>
+                        <button type="button" data-del-dpt="${item.id}" class="btn-delete-dpt px-2.5 py-1.5 rounded-lg bg-red-50 hover:bg-red-600 hover:text-white text-red-600 font-bold text-[11px] transition cursor-pointer" title="Hapus Kode">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+
+            // Single QR Modal Preview
+            document.querySelectorAll('.btn-view-single-qr').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.getAttribute('data-qr-id');
+                    const cat = btn.getAttribute('data-qr-cat');
+                    openCustomModal({
+                        title: 'Kartu Login Pemilih (QR Code)',
+                        bodyHtml: `
+                            <div class="border-2 border-dashed border-primary rounded-2xl p-5 text-center bg-white">
+                                <div class="text-[10px] font-black uppercase tracking-wider text-primary">${state.settings.schoolName}</div>
+                                <div class="text-xs font-bold text-slate-800 mb-3">${state.settings.eventTitle}</div>
+                                <div id="single-qr-canvas" class="flex justify-center my-3"></div>
+                                <div class="font-mono text-lg font-black text-slate-900 tracking-wider mt-2">${id}</div>
+                                <div class="text-[11px] font-bold uppercase text-slate-500 mt-0.5">Kategori: ${cat}</div>
+                            </div>
+                        `,
+                        buttons: [{ label: 'Tutup', onClick: closeCustomModal }]
+                    });
+                    setTimeout(() => {
+                        const target = document.getElementById('single-qr-canvas');
+                        if (target) {
+                            new QRCode(target, { text: id, width: 150, height: 150, colorDark: '#0f172a', colorLight: '#ffffff' });
+                        }
+                    }, 50);
+                });
+            });
+
+            // Delete Single DPT
+            document.querySelectorAll('.btn-delete-dpt').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const id = btn.getAttribute('data-del-dpt');
+                    if (IS_PREVIEW) {
+                        state.dpt = state.dpt.filter(d => d.id !== id);
+                        renderAdminDptTab();
+                        renderAdminLiveDashboard();
+                    } else {
+                        await deleteDoc(doc(fbDb, 'dpt', id));
+                    }
+                    showToast(`Kode ${id} dihapus`, 'info');
+                });
+            });
+        }
+
+        document.getElementById('input-search-dpt').addEventListener('input', renderAdminDptTab);
+        document.getElementById('filter-dpt-status').addEventListener('change', renderAdminDptTab);
+        document.getElementById('filter-dpt-category').addEventListener('change', renderAdminDptTab);
+
+        // Print / Download All QR Login Cards
+        document.getElementById('btn-print-all-qr').addEventListener('click', () => {
+            if (state.dpt.length === 0) {
+                showToast('Belum ada data DPT untuk dicetak.', 'error');
+                return;
+            }
+            const sheet = document.getElementById('print-qr-sheet');
+            sheet.innerHTML = '';
+
+            state.dpt.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'qr-print-card p-4 rounded-xl bg-white text-center flex flex-col items-center justify-between';
+                card.innerHTML = `
+                    <div class="text-[9px] font-black uppercase text-primary tracking-wider">${state.settings.schoolName}</div>
+                    <div class="text-[10px] font-bold text-slate-800 mb-2">KARTU LOGIN E-VOTING IPM</div>
+                    <div id="print-qr-box-${item.id}" class="my-1"></div>
+                    <div class="font-mono text-sm font-black text-slate-900 mt-1.5 tracking-wider">${item.id}</div>
+                    <div class="text-[9px] font-bold uppercase text-slate-500">Kategori: ${item.kategori}</div>
+                `;
+                sheet.appendChild(card);
+                new QRCode(card.querySelector(`#print-qr-box-${item.id}`), {
+                    text: item.id,
+                    width: 96,
+                    height: 96,
+                    colorDark: '#000000',
+                    colorLight: '#ffffff'
+                });
+            });
+
+            setTimeout(() => {
+                window.print();
+            }, 350);
+        });
+
+        // =====================================================================
+        // ADMIN TAB 4: PENGATURAN, EDIT TAMPILAN UTAMA, 3 INTI, BAP & RESET
+        // =====================================================================
+        document.getElementById('set-primary-color').addEventListener('input', (e) => {
+            document.getElementById('label-primary-color').textContent = e.target.value;
+        });
+        document.getElementById('set-secondary-color').addEventListener('input', (e) => {
+            document.getElementById('label-secondary-color').textContent = e.target.value;
+        });
+
+        document.getElementById('input-org-logo-file').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            try {
+                const base64 = await compressImageToBase64(file, 180, 180, 0.85);
+                state.settings.orgLogo = base64;
+                document.getElementById('preview-settings-logo').src = base64;
+                showToast('Logo organisasi berhasil dikompresi');
+            } catch (_) {
+                showToast('Gagal memuat logo organisasi', 'error');
+            }
+        });
+
+        document.getElementById('form-appearance-settings').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            state.settings.eventTitle = document.getElementById('set-event-title').value.trim();
+            state.settings.schoolName = document.getElementById('set-school-name').value.trim();
+            state.settings.eventSubtitle = document.getElementById('set-event-subtitle').value.trim();
+            state.settings.primaryColor = document.getElementById('set-primary-color').value;
+            state.settings.secondaryColor = document.getElementById('set-secondary-color').value;
+            state.settings.welcomeText = document.getElementById('set-welcome-text').value.trim();
+
+            applyAppearanceToUI();
+            if (!IS_PREVIEW && fbDb) {
+                await setDoc(doc(fbDb, 'settings', 'general'), state.settings, { merge: true });
+            }
+            showToast('Tampilan halaman utama berhasil diperbarui!');
+        });
+
+        function renderAdminSettingsTab() {
+            const roles = ['ketua', 'sekretaris', 'bendahara'];
+            roles.forEach(role => {
+                const selectEl = document.getElementById(`select-inti-${role}`);
+                if (!selectEl) return;
+                const currentVal = state.coreOfficers[role] || '';
+                selectEl.innerHTML = `<option value="">-- Pilih Formatur --</option>` +
+                    state.candidates.map(c => `<option value="${c.id}" ${c.id === currentVal ? 'selected' : ''}>${c.nomor}. ${c.nama} (${c.kelas})</option>`).join('');
+                renderCoreOfficerPreviewCard(role, currentVal);
+            });
+        }
+
+        function renderCoreOfficerPreviewCard(role, candId) {
+            const box = document.getElementById(`card-preview-${role}`);
+            if (!box) return;
+            const cand = state.candidates.find(c => c.id === candId);
+            if (!cand) {
+                box.innerHTML = `<div class="text-[11px] text-slate-400 italic py-2">Belum ditetapkan</div>`;
+                return;
+            }
+            box.innerHTML = `
+                <div class="flex items-center gap-2.5 p-2 rounded-xl bg-white border border-slate-200">
+                    <img src="${cand.foto}" class="w-10 h-10 rounded-lg object-cover">
+                    <div class="min-w-0">
+                        <div class="text-xs font-black text-slate-900 truncate">${cand.nama}</div>
+                        <div class="text-[10px] font-bold text-slate-500">Kelas ${cand.kelas}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        ['ketua', 'sekretaris', 'bendahara'].forEach(role => {
+            document.getElementById(`select-inti-${role}`).addEventListener('change', (e) => {
+                renderCoreOfficerPreviewCard(role, e.target.value);
+            });
+        });
+
+        document.getElementById('btn-save-3-inti').addEventListener('click', async () => {
+            const ketua = document.getElementById('select-inti-ketua').value;
+            const sekretaris = document.getElementById('select-inti-sekretaris').value;
+            const bendahara = document.getElementById('select-inti-bendahara').value;
+            const msgEl = document.getElementById('inti-validation-msg');
+            msgEl.classList.add('hidden');
+
+            if (!ketua || !sekretaris || !bendahara) {
+                msgEl.textContent = 'Ketiga jabatan (Ketua Umum, Sekretaris Umum, Bendahara Umum) wajib dipilih!';
+                msgEl.classList.remove('hidden');
+                return;
+            }
+
+            if (new Set([ketua, sekretaris, bendahara]).size < 3) {
+                msgEl.textContent = 'Satu orang tidak boleh merangkap dua jabatan inti!';
+                msgEl.classList.remove('hidden');
+                return;
+            }
+
+            state.coreOfficers = { ketua, sekretaris, bendahara };
+            if (!IS_PREVIEW && fbDb) {
+                await setDoc(doc(fbDb, 'settings', 'core_officers'), state.coreOfficers);
+            }
+            showToast('Penetapan 3 Inti PR IPM berhasil disimpan!');
+        });
+
+        document.getElementById('btn-save-deadline').addEventListener('click', async () => {
+            const val = document.getElementById('input-settings-deadline').value;
+            if (!val) return;
+            state.settings.deadline = val;
+            if (!IS_PREVIEW && fbDb) {
+                await setDoc(doc(fbDb, 'settings', 'general'), { deadline: val }, { merge: true });
+            }
+            showToast('Batas waktu pemilihan diperbarui');
+        });
+
+        // Export BAP (.TXT)
+        document.getElementById('btn-export-bap').addEventListener('click', () => {
+            const analysis = computeTop3Analysis();
+            const totalDpt = state.dpt.length;
+            const votedCount = state.dpt.filter(d => d.status === 'Telah Memilih').length;
+            const nowStr = new Date().toLocaleString('id-ID');
+
+            const getCandName = (id) => {
+                const c = state.candidates.find(x => x.id === id);
+                return c ? `${c.nama} (Kelas ${c.kelas})` : 'Belum Ditetapkan';
+            };
+
+            let bap = `====================================================================\n`;
+            bap += `BERITA ACARA PEMUNGUTAN & PENGHITUNGAN SUARA E-VOTING\n`;
+            bap += `${state.settings.eventTitle}\n`;
+            bap += `${state.settings.schoolName}\n`;
+            bap += `====================================================================\n`;
+            bap += `Waktu Cetak Dokumen : ${nowStr}\n`;
+            bap += `Total Pemilih (DPT) : ${totalDpt} Pemilih\n`;
+            bap += `Pemilih Hadir/Sah   : ${votedCount} Pemilih\n`;
+            bap += `Total Suara Masuk   : ${analysis.totalVotes} Suara\n\n`;
+            bap += `--------------------------------------------------------------------\n`;
+            bap += `REKAPITULASI PEROLEHAN SUARA FORMATUR\n`;
+            bap += `--------------------------------------------------------------------\n`;
+            analysis.ranked.forEach((c, idx) => {
+                bap += `${idx + 1}. [No.${c.nomor}] ${c.nama} (${c.kelas}) : ${c.suara} Suara (${c.pct}%)\n`;
+            });
+            bap += `\n--------------------------------------------------------------------\n`;
+            bap += `PENETAPAN 3 PIMPINAN INTI PR IPM\n`;
+            bap += `--------------------------------------------------------------------\n`;
+            bap += `Ketua Umum      : ${getCandName(state.coreOfficers.ketua)}\n`;
+            bap += `Sekretaris Umum : ${getCandName(state.coreOfficers.sekretaris)}\n`;
+            bap += `Bendahara Umum  : ${getCandName(state.coreOfficers.bendahara)}\n`;
+            bap += `====================================================================\n`;
+
+            const blob = new Blob([bap], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `BAP_MUSYRAN_IPM_${Date.now()}.txt`;
+            link.click();
+            showToast('Berita Acara (.TXT) berhasil diunduh');
+        });
+
+        // Reset Database Modal (Must type "HAPUS")
+        document.getElementById('btn-trigger-reset-db').addEventListener('click', () => {
+            openCustomModal({
+                title: 'Reset Seluruh Database',
+                bodyHtml: `
+                    <p class="text-red-600 font-bold mb-2">PERINGATAN: Tindakan ini akan mengembalikan seluruh suara calon menjadi 0 dan menghapus seluruh data DPT!</p>
+                    <p class="mb-3">Ketik kata <strong class="font-mono bg-red-50 text-red-700 px-1.5 py-0.5 rounded border border-red-200">HAPUS</strong> di bawah ini untuk mengonfirmasi:</p>
+                    <input type="text" id="input-confirm-reset-word" placeholder="Ketik HAPUS"
+                        class="w-full px-3.5 py-2.5 bg-slate-50 border-2 border-red-300 rounded-xl font-mono text-sm font-black uppercase text-center focus:outline-none">
+                    <p id="reset-word-error" class="hidden mt-2 text-xs font-bold text-red-600">Kata konfirmasi tidak sesuai. Ketik HAPUS dengan huruf kapital.</p>
+                `,
+                buttons: [
+                    { label: 'Batal', className: 'px-4 py-2.5 rounded-xl bg-slate-200 text-slate-700 font-bold text-xs uppercase cursor-pointer', onClick: closeCustomModal },
+                    {
+                        label: 'Reset Permanen',
+                        className: 'px-5 py-2.5 rounded-xl bg-red-600 text-white font-bold text-xs uppercase cursor-pointer',
+                        onClick: async () => {
+                            const typed = document.getElementById('input-confirm-reset-word').value.trim();
+                            if (typed !== 'HAPUS') {
+                                document.getElementById('reset-word-error').classList.remove('hidden');
+                                return;
+                            }
+
+                            if (IS_PREVIEW) {
+                                state.candidates.forEach(c => c.suara = 0);
+                                state.dpt = [];
+                                state.coreOfficers = { ketua: '', sekretaris: '', bendahara: '' };
+                                refreshAllViews();
+                            } else {
+                                const batch = writeBatch(fbDb);
+                                state.candidates.forEach(c => {
+                                    batch.update(doc(fbDb, 'candidates', c.id), { suara: 0 });
+                                });
+                                state.dpt.forEach(d => {
+                                    batch.delete(doc(fbDb, 'dpt', d.id));
+                                });
+                                batch.set(doc(fbDb, 'settings', 'core_officers'), { ketua: '', sekretaris: '', bendahara: '' });
+                                await batch.commit();
+                            }
+                            closeCustomModal();
+                            showToast('Seluruh database berhasil di-reset ke 0', 'info');
+                        }
+                    }
+                ]
+            });
+        });
+
+        // =====================================================================
+        // EXCLUSIVE STAGE ANNOUNCEMENTS ENGINE (A. 3 BESAR & B. 3 INTI)
+        // =====================================================================
+        const stageController = {
+            mode: null, // 'top3' | 'inti'
+            stepIndex: 0,
+            isPaused: false,
+            timerId: null
+        };
+
+        function openStageOverlay(mode) {
+            stageController.mode = mode;
+            stageController.stepIndex = 0;
+            stageController.isPaused = false;
+            clearTimeout(stageController.timerId);
+            stageAudio.stopAll();
+
+            const overlay = document.getElementById('ceremony-stage-overlay');
+            overlay.classList.remove('hidden');
+
+            document.getElementById('btn-stage-start').classList.remove('hidden');
+            document.getElementById('btn-stage-pause').classList.add('hidden');
+            document.getElementById('btn-stage-resume').classList.add('hidden');
+            document.getElementById('label-btn-stage-start').textContent =
+                mode === 'top3' ? 'MULAI PENGUMUMAN' : 'MULAI PENGUMUMAN 3 INTI';
+
+            renderStageOpeningScreen();
+        }
+
+        function renderStageOpeningScreen() {
+            const canvas = document.getElementById('stage-center-canvas');
+            if (stageController.mode === 'top3') {
+                canvas.innerHTML = `
+                    <div class="animate-fade-in space-y-5">
+                        <span class="px-4 py-1.5 rounded-full bg-secondary/20 text-secondary border border-secondary/40 text-xs font-black uppercase tracking-widest">
+                            Sidang Pleno Penghitungan Suara
+                        </span>
+                        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight">
+                            HASIL MUSYAWARAH RANTING <span class="text-secondary">(MUSYRAN)</span>
+                        </h1>
+                        <p class="text-sm sm:text-lg text-slate-300 font-medium max-w-2xl mx-auto">
+                            Pengumuman Resmi 3 Formatur Peraih Suara Terbanyak PR IPM ${state.settings.schoolName}
+                        </p>
+                        <div class="pt-4">
+                            <span class="inline-flex items-center gap-2 text-xs text-slate-400">
+                                <i class="fa-solid fa-circle-play text-primary"></i> Tekan tombol <strong class="text-white">MULAI PENGUMUMAN</strong> di bawah untuk memulai seremoni
+                            </span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                canvas.innerHTML = `
+                    <div class="animate-fade-in space-y-5">
+                        <img src="${state.settings.orgLogo}" class="w-24 h-24 rounded-3xl mx-auto object-cover border-2 border-secondary shadow-2xl">
+                        <span class="px-4 py-1.5 rounded-full bg-primary/30 text-secondary border border-secondary/40 text-xs font-black uppercase tracking-widest">
+                            Pelantikan & Pengesahan Pimpinan
+                        </span>
+                        <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
+                            PENETAPAN 3 INTI PR IPM
+                        </h1>
+                        <p class="text-base sm:text-xl font-bold text-secondary uppercase tracking-wider">
+                            ${state.settings.schoolName}
+                        </p>
+                        <p class="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto">
+                            Susunan Ketua Umum, Sekretaris Umum, dan Bendahara Umum hasil musyawarah formatur terpilih.
+                        </p>
+                    </div>
+                `;
+            }
+        }
+
+        // Launch Button A: Pengumuman 3 Besar
+        document.getElementById('btn-launch-stage-top3').addEventListener('click', () => {
+            if (state.candidates.length < 3) {
+                showToast('Data calon formatur belum lengkap.', 'error');
+                return;
+            }
+            openStageOverlay('top3');
+        });
+
+        // Launch Button B: Pengumuman 3 Inti (With Validation & Confirmation Modal)
+        document.getElementById('btn-launch-stage-inti').addEventListener('click', () => {
+            const { ketua, sekretaris, bendahara } = state.coreOfficers;
+            if (!ketua || !sekretaris || !bendahara || new Set([ketua, sekretaris, bendahara]).size < 3) {
+                openCustomModal({
+                    title: 'Penetapan 3 Inti Belum Lengkap',
+                    bodyHtml: '<p>Pengumuman 3 Inti hanya dapat dilakukan apabila <strong>Ketua Umum, Sekretaris Umum, dan Bendahara Umum</strong> telah ditetapkan pada tab <strong>Pengaturan & Tampilan</strong> tanpa rangkap jabatan.</p>',
+                    buttons: [{ label: 'Atur Sekarang', onClick: () => { closeCustomModal(); switchAdminTab('settings'); } }]
+                });
+                return;
+            }
+
+            openCustomModal({
+                title: 'Konfirmasi Pengumuman 3 Inti',
+                bodyHtml: '<p>Apakah Admin sudah siap menayangkan seremoni pengumuman resmi penetapan <strong>3 Inti PR IPM</strong> ke layar utama/proyektor?</p>',
+                buttons: [
+                    { label: 'Batal', className: 'px-4 py-2.5 rounded-xl bg-slate-200 text-slate-700 font-bold text-xs uppercase cursor-pointer', onClick: closeCustomModal },
+                    {
+                        label: 'Siap, Buka Panggung',
+                        className: 'px-5 py-2.5 rounded-xl bg-primary text-white font-bold text-xs uppercase shadow-md cursor-pointer',
+                        onClick: () => {
+                            closeCustomModal();
+                            openStageOverlay('inti');
+                        }
+                    }
+                ]
+            });
+        });
+
+        // Stage Playback Sequence Execution
+        function runStageSequenceStep() {
+            if (stageController.isPaused) return;
+            const canvas = document.getElementById('stage-center-canvas');
+
+            if (stageController.mode === 'top3') {
+                const analysis = computeTop3Analysis();
+                const steps = [
+                    // Step 0: Countdown 3
+                    () => {
+                        stageAudio.playCountdownBeep(false);
+                        canvas.innerHTML = `<div class="animate-zoom-pop text-8xl sm:text-9xl font-black text-secondary drop-shadow-lg">3</div>`;
+                        stageController.timerId = setTimeout(() => { stageController.stepIndex = 1; runStageSequenceStep(); }, 1100);
+                    },
+                    // Step 1: Countdown 2
+                    () => {
+                        stageAudio.playCountdownBeep(false);
+                        canvas.innerHTML = `<div class="animate-zoom-pop text-8xl sm:text-9xl font-black text-secondary drop-shadow-lg">2</div>`;
+                        stageController.timerId = setTimeout(() => { stageController.stepIndex = 2; runStageSequenceStep(); }, 1100);
+                    },
+                    // Step 2: Countdown 1
+                    () => {
+                        stageAudio.playCountdownBeep(true);
+                        canvas.innerHTML = `<div class="animate-zoom-pop text-8xl sm:text-9xl font-black text-primary drop-shadow-lg">1</div>`;
+                        stageController.timerId = setTimeout(() => { stageController.stepIndex = 3; runStageSequenceStep(); }, 1100);
+                    },
+                    // Step 3: Check Tie OR Reveal Podium 3rd -> 2nd -> 1st
+                    () => {
+                        if (analysis.hasTie) {
+                            stageAudio.playFanfare();
+                            const tiedHtml = analysis.tiedCandidates.map(c => `
+                                <div class="p-4 rounded-2xl bg-white/10 border border-amber-400/50 flex items-center gap-3 text-left">
+                                    <img src="${c.foto}" class="w-16 h-16 rounded-xl object-cover border border-secondary">
+                                    <div>
+                                        <div class="text-base font-black text-white">${c.nama}</div>
+                                        <div class="text-xs text-secondary font-bold">Kelas ${c.kelas} • ${c.suara} Suara (${c.pct}%)</div>
+                                    </div>
+                                </div>
+                            `).join('');
+
+                            canvas.innerHTML = `
+                                <div class="animate-fade-in max-w-3xl w-full bg-slate-900/90 border-2 border-amber-400 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-5">
+                                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-black uppercase tracking-widest">
+                                        <i class="fa-solid fa-scale-balanced"></i> Perhatian Sidang Pleno
+                                    </div>
+                                    <h2 class="text-2xl sm:text-4xl font-black text-amber-400">HASIL SUARA SERI</h2>
+                                    <p class="text-xs sm:text-sm text-slate-300">
+                                        Terdapat perolehan suara sama pada posisi peringkat teratas. Sistem tidak menentukan pemenang secara otomatis. Admin/Pimpinan Sidang wajib melakukan penetapan sesuai mekanisme musyawarah.
+                                    </p>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">${tiedHtml}</div>
+                                </div>
+                            `;
+                            finishStagePlaybackButtons();
+                            return;
+                        }
+
+                        // Reveal Rank 3
+                        stageAudio.playDrumRoll(1.4);
+                        const c3 = analysis.top3[2];
+                        renderPodiumStageFrame({ show3: true, show2: false, show1: false, c1: analysis.top3[0], c2: analysis.top3[1], c3 });
+                        stageController.timerId = setTimeout(() => { stageController.stepIndex = 4; runStageSequenceStep(); }, 3200);
+                    },
+                    // Step 4: Reveal Rank 2
+                    () => {
+                        stageAudio.playDrumRoll(1.4);
+                        const c2 = analysis.top3[1];
+                        renderPodiumStageFrame({ show3: true, show2: true, show1: false, c1: analysis.top3[0], c2, c3: analysis.top3[2] });
+                        stageController.timerId = setTimeout(() => { stageController.stepIndex = 5; runStageSequenceStep(); }, 3200);
+                    },
+                    // Step 5: Grand Finale Rank 1
+                    () => {
+                        stageAudio.playFanfare();
+                        stageAudio.playApplause(3.2);
+                        renderPodiumStageFrame({ show3: true, show2: true, show1: true, c1: analysis.top3[0], c2: analysis.top3[1], c3: analysis.top3[2] });
+                        if (typeof confetti === 'function') {
+                            confetti({ particleCount: 160, spread: 100, origin: { y: 0.55 }, colors: ['#138A36', '#FFCC00', '#FFFFFF'] });
+                        }
+                        finishStagePlaybackButtons();
+                    }
+                ];
+
+                if (steps[stageController.stepIndex]) steps[stageController.stepIndex]();
+            } else {
+                // MODE B: PENGUMUMAN PENETAPAN 3 INTI PR IPM
+                const cKetua = state.candidates.find(c => c.id === state.coreOfficers.ketua);
+                const cSek = state.candidates.find(c => c.id === state.coreOfficers.sekretaris);
+                const cBend = state.candidates.find(c => c.id === state.coreOfficers.bendahara);
+
+                const steps = [
+                    // Step 0: Countdown 3-2-1
+                    () => {
+                        stageAudio.playCountdownBeep(false);
+                        canvas.innerHTML = `<div class="animate-zoom-pop text-8xl font-black text-secondary">3</div>`;
+                        stageController.timerId = setTimeout(() => { stageController.stepIndex = 1; runStageSequenceStep(); }, 1000);
+                    },
+                    () => {
+                        stageAudio.playCountdownBeep(false);
+                        canvas.innerHTML = `<div class="animate-zoom-pop text-8xl font-black text-secondary">2</div>`;
+                        stageController.timerId = setTimeout(() => { stageController.stepIndex = 2; runStageSequenceStep(); }, 1000);
+                    },
+                    () => {
+                        stageAudio.playCountdownBeep(true);
+                        canvas.innerHTML = `<div class="animate-zoom-pop text-8xl font-black text-primary">1</div>`;
+                        stageController.timerId = setTimeout(() => { stageController.stepIndex = 3; runStageSequenceStep(); }, 1000);
+                    },
+                    // Step 3: Sekretaris Umum
+                    () => {
+                        stageAudio.playDrumRoll(1.2);
+                        renderCoreOfficersStageFrame({ showSek: true, showBend: false, showKetua: false, cKetua, cSek, cBend, closing: false });
+                        stageController.timerId = setTimeout(() => { stageController.stepIndex = 4; runStageSequenceStep(); }, 3200);
+                    },
+                    // Step 4: Bendahara Umum
+                    () => {
+                        stageAudio.playDrumRoll(1.2);
+                        renderCoreOfficersStageFrame({ showSek: true, showBend: true, showKetua: false, cKetua, cSek, cBend, closing: false });
+                        stageController.timerId = setTimeout(() => { stageController.stepIndex = 5; runStageSequenceStep(); }, 3200);
+                    },
+                    // Step 5: Ketua Umum + Closing Banner
+                    () => {
+                        stageAudio.playFanfare();
+                        stageAudio.playApplause(3.5);
+                        renderCoreOfficersStageFrame({ showSek: true, showBend: true, showKetua: true, cKetua, cSek, cBend, closing: true });
+                        if (typeof confetti === 'function') {
+                            confetti({ particleCount: 180, spread: 110, origin: { y: 0.5 }, colors: ['#138A36', '#FFCC00', '#FFFFFF'] });
+                        }
+                        finishStagePlaybackButtons();
+                    }
+                ];
+
+                if (steps[stageController.stepIndex]) steps[stageController.stepIndex]();
+            }
+        }
+
+        function renderPodiumStageFrame({ show1, show2, show3, c1, c2, c3 }) {
+            const canvas = document.getElementById('stage-center-canvas');
+            const buildCard = (cand, rank, heightClass, isGold = false) => {
+                if (!cand) return '<div></div>';
+                return `
+                    <div class="animate-podium-rise flex flex-col items-center">
+                        <div class="w-full max-w-[260px] rounded-3xl p-4 sm:p-5 bg-slate-900/90 border-2 ${isGold ? 'border-secondary glow-gold' : 'border-white/20'} shadow-2xl mb-3 text-center">
+                            <div class="relative w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-3">
+                                <img src="${cand.foto}" class="w-full h-full rounded-2xl object-cover border-2 ${isGold ? 'border-secondary' : 'border-primary'}">
+                                <span class="absolute -bottom-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full ${isGold ? 'bg-secondary text-slate-950' : 'bg-primary text-white'} font-black text-xs uppercase shadow">
+                                    Peringkat ${rank}
+                                </span>
+                            </div>
+                            <h3 class="text-base sm:text-lg font-black text-white leading-tight mt-2">${cand.nama}</h3>
+                            <p class="text-xs font-bold text-slate-400 mt-0.5">Kelas ${cand.kelas}</p>
+                            <div class="mt-3 pt-2.5 border-t border-white/10 flex items-center justify-center gap-2">
+                                <span class="text-sm sm:text-base font-black text-secondary">${cand.suara} Suara</span>
+                                <span class="text-xs font-bold text-white/80">(${cand.pct}%)</span>
+                            </div>
+                        </div>
+                        <div class="w-full max-w-[260px] ${heightClass} rounded-t-2xl ${isGold ? 'bg-gradient-to-t from-amber-600 to-secondary text-slate-950' : 'bg-gradient-to-t from-slate-800 to-slate-700 text-white'} flex items-center justify-center font-black text-3xl sm:text-4xl shadow-inner">
+                            #${rank}
+                        </div>
+                    </div>
+                `;
+            };
+
+            canvas.innerHTML = `
+                <div class="w-full space-y-6">
+                    <div>
+                        <span class="text-xs font-black uppercase tracking-widest text-secondary">Podium Kehormatan Formatur Terpilih</span>
+                        <h2 class="text-2xl sm:text-4xl font-black text-white mt-1">3 FORMATUR PERAIH SUARA TERBANYAK</h2>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 items-end pt-4">
+                        <div class="order-2 md:order-1">${show2 ? buildCard(c2, 2, 'h-24 sm:h-28', false) : ''}</div>
+                        <div class="order-1 md:order-2">${show1 ? buildCard(c1, 1, 'h-32 sm:h-40', true) : ''}</div>
+                        <div class="order-3 md:order-3">${show3 ? buildCard(c3, 3, 'h-20 sm:h-24', false) : ''}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCoreOfficersStageFrame({ showSek, showBend, showKetua, cKetua, cSek, cBend, closing }) {
+            const canvas = document.getElementById('stage-center-canvas');
+            const buildRoleCard = (cand, roleTitle, isChairman = false) => {
+                if (!cand) return '';
+                return `
+                    <div class="animate-podium-rise rounded-3xl p-5 sm:p-6 bg-slate-900/90 border-2 ${isChairman ? 'border-secondary glow-gold scale-105' : 'border-primary/70'} shadow-2xl text-center">
+                        <span class="inline-block px-3.5 py-1 rounded-full ${isChairman ? 'bg-secondary text-slate-950' : 'bg-primary text-white'} font-black text-xs uppercase tracking-wider mb-4">
+                            ${roleTitle}
+                        </span>
+                        <img src="${cand.foto}" class="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl mx-auto object-cover border-2 ${isChairman ? 'border-secondary' : 'border-white/30'} mb-4 shadow-lg">
+                        <h3 class="text-lg sm:text-xl font-black text-white leading-snug">${cand.nama}</h3>
+                        <p class="text-xs sm:text-sm font-bold text-secondary mt-1">Kelas ${cand.kelas}</p>
+                    </div>
+                `;
+            };
+
+            canvas.innerHTML = `
+                <div class="w-full space-y-6">
+                    <div>
+                        <span class="text-xs font-black uppercase tracking-widest text-secondary">Struktur Pimpinan Inti Terpilih</span>
+                        <h2 class="text-2xl sm:text-4xl font-black text-white mt-1">3 INTI PR IPM ${state.settings.schoolName}</h2>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center pt-2">
+                        <div>${showSek ? buildRoleCard(cSek, 'SEKRETARIS UMUM', false) : ''}</div>
+                        <div>${showKetua ? buildRoleCard(cKetua, 'KETUA UMUM', true) : ''}</div>
+                        <div>${showBend ? buildRoleCard(cBend, 'BENDAHARA UMUM', false) : ''}</div>
+                    </div>
+                    ${closing ? `
+                        <div class="animate-fade-in pt-4">
+                            <div class="inline-block px-6 py-3 rounded-2xl bg-gradient-to-r from-primary via-emerald-600 to-primary border border-secondary/50 shadow-xl">
+                                <p class="text-sm sm:text-lg font-black tracking-widest text-secondary uppercase">
+                                    SELAMAT DAN SUKSES MENGEMBAN AMANAH
+                                </p>
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function finishStagePlaybackButtons() {
+            document.getElementById('btn-stage-pause').classList.add('hidden');
+            document.getElementById('btn-stage-resume').classList.add('hidden');
+            document.getElementById('btn-stage-start').classList.add('hidden');
+        }
+
+        // Admin Stage Controls Event Listeners
+        document.getElementById('btn-stage-start').addEventListener('click', () => {
+            stageAudio.ensureContext();
+            stageController.stepIndex = 0;
+            stageController.isPaused = false;
+            document.getElementById('btn-stage-start').classList.add('hidden');
+            document.getElementById('btn-stage-pause').classList.remove('hidden');
+            runStageSequenceStep();
+        });
+
+        document.getElementById('btn-stage-pause').addEventListener('click', () => {
+            stageController.isPaused = true;
+            clearTimeout(stageController.timerId);
+            stageAudio.stopAll();
+            document.getElementById('btn-stage-pause').classList.add('hidden');
+            document.getElementById('btn-stage-resume').classList.remove('hidden');
+        });
+
+        document.getElementById('btn-stage-resume').addEventListener('click', () => {
+            stageController.isPaused = false;
+            document.getElementById('btn-stage-resume').classList.add('hidden');
+            document.getElementById('btn-stage-pause').classList.remove('hidden');
+            runStageSequenceStep();
+        });
+
+        document.getElementById('btn-stage-restart').addEventListener('click', () => {
+            clearTimeout(stageController.timerId);
+            stageAudio.stopAll();
+            stageController.stepIndex = 0;
+            stageController.isPaused = false;
+            document.getElementById('btn-stage-resume').classList.add('hidden');
+            document.getElementById('btn-stage-pause').classList.remove('hidden');
+            document.getElementById('btn-stage-start').classList.add('hidden');
+            runStageSequenceStep();
+        });
+
+        document.getElementById('btn-stage-exit').addEventListener('click', () => {
+            clearTimeout(stageController.timerId);
+            stageAudio.stopAll();
+            if (document.fullscreenElement) {
+                document.exitFullscreen().catch(() => {});
+            }
+            document.getElementById('ceremony-stage-overlay').classList.add('hidden');
+        });
+
+        document.getElementById('btn-stage-mute').addEventListener('click', () => {
+            stageAudio.muted = !stageAudio.muted;
+            if (stageAudio.muted) stageAudio.stopAll();
+            const icon = document.getElementById('stage-mute-icon');
+            icon.className = stageAudio.muted ? 'fa-solid fa-volume-xmark text-red-400' : 'fa-solid fa-volume-high text-secondary';
+        });
+
+        document.getElementById('stage-volume-slider').addEventListener('input', (e) => {
+            stageAudio.volume = parseFloat(e.target.value);
+        });
+
+        document.getElementById('btn-stage-fullscreen').addEventListener('click', () => {
+            const el = document.getElementById('ceremony-stage-overlay');
+            if (!document.fullscreenElement) {
+                el.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        });
+
+        // =====================================================================
+        // BOOTSTRAP ON DOM READY
+        // =====================================================================
+        window.addEventListener('DOMContentLoaded', bootstrapApplication);
+    </script>
+</body>
+</html>
+```
